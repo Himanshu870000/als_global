@@ -1,0 +1,72 @@
+<template>
+
+    <lightning-quick-action-panel style="background: lightsteelblue;">
+      <center>
+        <h2 style=" font-size: 2rem;text-align: center;font-family: serif;"> Generate Quotation</h2>
+      </center>
+
+      <template if:true={isShowButtonHide}>
+        <template if:true={isShowBanglorePharmaPDF}>
+            <lightning-combobox  label="Select Quotion" value={value} options={options} onchange={HandleChange}> </lightning-combobox> <br/>
+          </template>
+          <template if:true={isShowBanglorePharmaPDF1}>
+            <lightning-combobox  label="" value={selectedBanValue} options={bangloreOptions} onchange={HandleChangebanglorePharma}> </lightning-combobox> <br/>
+          </template>
+            <template if:true={isShowMumbaiPharmaPDF}>
+              <lightning-combobox  label="" value={value} options={mumbaiOptions} onchange={HandleChangeMumbaiPharma}> </lightning-combobox> <br/>
+            </template>
+
+            <template if:true={isShowButton}>
+            <div class="slds-align_absolute-center">
+              <lightning-button-group>
+                <span style="margin-right:20px;">
+             <lightning-button  variant="Neutral" label="Cancel" onclick={closeQuickAction} class="slds-m-top_small slds-m-bottom_medium slds-m-left_x-small" ></lightning-button> 
+                </span>
+                <span>
+            <lightning-button variant="brand" label="Next" onclick={HandleNextButton} class="slds-m-top_small slds-m-bottom_medium" ></lightning-button>                    
+                </span>
+              </lightning-button-group>
+            </div> 
+          </template>
+        </template>
+
+        <template if:true={isValidatePharma}>
+        <center style="text-align: center; padding-top: 2rem;">
+        <h2 style=" font-size: 25px;text-align: center;font-family: serif;">Please provide value for the Sample Quantity, TAT, Subject and Contact to generate the Pharma Quote PDF.</h2> <br/>
+
+        </center>
+        </template>
+        <template if:true={isValidateENL}>
+        <center style="text-align: center; padding-top: 2rem;">
+        <h2 style=" font-size: 25px;text-align: center;font-family: serif;">Please provide value for the Sample Quantity, Subject and Contact to generate the Pharma Quote PDF.</h2> <br/>
+
+        </center>
+        </template>
+
+        
+
+          <div>
+          <template if:true={isShowPDFPreview}>
+
+            <template if:true={isShowPDFPreview}>
+              <iframe src={pdfLink} width="100%" height="700" style="border:none;">
+              </iframe>
+           </template>
+
+            <div class="slds-align_absolute-center">
+              <lightning-button-group>
+                <span style="margin-right:20px;    margin-top: 10px;">
+             <lightning-button  variant="Neutral" label="Cancel" onclick={closeQuickAction} class="slds-m-top_small slds-m-bottom_medium slds-m-left_x-small" ></lightning-button> 
+                </span>
+                <span style="    margin-top: 10px;">
+            <lightning-button variant="brand" label="Save" onclick={HandleSumbit} class="slds-m-top_small slds-m-bottom_medium" ></lightning-button>                    
+                </span>
+              </lightning-button-group>
+            </div> 
+          </template>
+        </div>
+        
+    </lightning-quick-action-panel>
+    
+
+</template>

@@ -1,0 +1,19 @@
+<aura:component controller="TaskCompleteButtonController" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <!--aura:attribute name="errorMsg" type="String"/>
+    <aura:attribute name="successMsg" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="force:refreshView" action="{!c.doInit}" />
+
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+
+    <aura:if isTrue="{!not(empty(v.errorMsg))}">
+        <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                <span class="slds-assistive-text">Error</span>
+                <h2>{!v.errorMsg}</h2>
+            </div>
+        </div>
+    </aura:if-->
+    
+</aura:component>

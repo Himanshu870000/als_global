@@ -1,0 +1,351 @@
+<apex:page applyHtmlTag="false" docType="html-5.0" applyBodyTag="false" showHeader="false" sidebar="false" standardController="Quote_C__c" renderAs="pdf" extensions="ALS_Quote_pdf_controller">
+    <html>
+        <head>
+            <style>
+                @page {
+                margin-top: 3cm;
+                margin-bottom:3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+                
+                @top-center {
+                content: element(header);
+                }
+                @bottom-left {
+                content: element(footer);
+                }
+                }
+                
+                div.header {
+                padding: 10px;
+                position: running(header);
+                }
+                div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+                }
+                .pagenumber:before {
+                content: counter(page);
+                }
+                .pagecount:before {
+                content: counter(pages);
+                }
+                div.content {
+                border-style:dotted;
+                float: left;
+                width: 100%;
+                }
+                table {
+                border-collapse: collapse;
+                width: 100%;
+                }
+                
+                th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="footer" style="margin-left: auto; margin-right: auto;">
+                <div class="number" Style="float:right; font-size: 15px;">Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+                <br/>
+                <hr style="border-top: 1px solid #20B2AA;" />
+                <div class="left-footer" style="float: left; font-size: 15px; color: #888; user-select: none;">Right Solutions . Right Partner</div>
+                <div class="right-footer" style="float: right; font-size: 15px; color: navy; user-select: none;">
+                    <a href="http://www.alsglobal.com" target="_blank" style="color: navy; text-decoration: none;">www.alsglobal.com</a>
+                </div>
+            </div>
+            
+            
+            <div class="header">
+                
+                <div style="display: inline-block; width: 100%; margin: 1rem; padding: 2rem 2rem; padding-top: 10px; font-family: Noto Sans, Helvetica, sans-serif; margin-left: 30px;">
+                    <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 60%;">
+                        <apex:image url="{!$Resource.ALS_Mumbai_logo}" width="190" height="60" /><br/>
+                    </div>
+                    <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 40%; font-size: 12px;">
+                        <span>
+                            Analytical Solutions<br />
+                            (A div. of Indtech Instruments Pvt. ltd)<br />
+                            B-22 MIDC TTC. Ind. Area, Chinchavali<br />
+                            Navi Mumbai – 400708<br />
+                        </span>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #D3D3D3;" />
+                
+                
+            </div>
+        </body>
+        
+        <!-- Quote Information -->
+        <div style="display: inline-block; width: 100%; margin: 1rem; padding: 2rem 2rem;font-size: 15px;">
+            <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 60%;">
+                <table>
+                    <div style="margin-bottom: 10px;font-size: 15px;"><strong>Qutation No. : &nbsp; <span style="font-weight: normal;">{!quote.Name}</span>  </strong></div>
+                    <!--tr>
+                        td style="padding-bottom: 10px;border:none"><span><b>Qutation No.</b></span></td>
+                        <td style="padding-bottom: 10px;border:none"><span style="font-weight: normal;">{!quote.Name}</span></td>
+                    </tr-->
+                    
+                </table>
+            </div>
+            <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 40%;">
+                <table>
+                    <div style="margin-bottom: 10px;font-size: 15px;margin-left: 100px;"><strong>Quotation Date : &nbsp; <span style="font-weight: normal;"><apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!quote.CreatedDate}" /></apex:outputText></span>  </strong></div>
+                    <!--tr>
+                        <td style="padding-bottom: 10px;white-space: nowrap;border:none"><span><b>Quotation Date :</b></span></td>
+                        <td style="padding-bottom: 10px;white-space: nowrap;border:none "><span style="font-weight: normal;"><apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!quote.CreatedDate}" /></apex:outputText></span></td>
+                    </tr-->
+                    <!-- Add more rows as needed -->
+                    
+                </table>
+            </div>
+        </div>
+        <!-- Client and Project Information -->
+        <div style = "font-size: 15px;">
+            
+            <div style="margin-bottom: 10px;">To :</div>
+            <span class="content" style="display: block;margin-bottom: 10px;"><b>{!quote.ContactId__r.Name}</b></span>
+            
+            <div style="margin-bottom: 10px;">
+                <span class="content" style="display: block;margin-bottom: 40px;">{!quote.AccountId__r.Name} <br/>
+                    {!quote.OpportunityId__r.Billing_Address__Street__s},<br/>
+                    {!quote.OpportunityId__r.Billing_Address__City__s}, {!quote.OpportunityId__r.Billing_Address__StateCode__s}-{!quote.OpportunityId__r.Billing_Address__PostalCode__s}, <br/>
+                    {!quote.OpportunityId__r.Billing_Address__CountryCode__s}
+                </span>
+            </div>
+            
+            <div style="margin-bottom: 10px;"><strong>Project Name: </strong>{!quote.Subject__c}</div>
+            <!--span class="content" style="display: block;margin-bottom: 40px;">{!quote.Subject__c}</span-->
+            
+            <!-- Introduction -->
+            <div style="margin-bottom: 10px;font-size: 15px;">
+                <span class="content" style="display: block;margin-bottom: 10px;"><strong>Dear {!quote.ContactId__r.Name},</strong></span>
+                <span class="content" style="display: block;margin-bottom: 40px;">Thank-you very much for your interest in our services, we are pleased to submit our offer for (Scope of work).</span>
+            </div>
+            
+        </div>
+        <!-- About Us Section -->
+        <div style="margin-bottom: 10px;font-size: 15px;"><strong>About us: </strong></div>
+        <div style = "font-size: 15px;">
+            <p>{!ABOUTUS.About_Us_1__c}{!ABOUTUS.About_Us_2__c}{!ABOUTUS.About_Us_3__c}</p> 
+            <p>
+                {!ABOUTUS.About_Us_4__c}
+            </p>
+            <p>
+                {!ABOUTUS.About_Us_5__c}
+            </p>
+            <p>
+                {!ABOUTUS.About_Us_6__c}{!ABOUTUS.About_Us_7__c}
+            </p>
+            <p>
+                <b>Guidelines:</b> <span>The Analysis shall be done in accordance with the requirements as per ICH guidelines.</span>
+            </p>
+        </div>
+        <div style="page-break-after: always"/>
+        <p style="width:100%;">
+            <span style="font-size:20px;font-weight: bold;">Commercial Proposal </span>
+        </p>
+        <!-- Product Table -->
+        <table style="border-collapse: collapse;margin-top: 20px; margin-bottom: 10px;" width="100%">
+            <tr>
+                <th style="text-align: center; border: 1px solid black;">Sr No.</th>
+                <th style="text-align: center; border: 1px solid black;">Test Code &amp; Method</th>
+                <th style="text-align: center; border: 1px solid black;">Test Name</th>             
+                <th style="text-align: center; border: 1px solid black;">Quantity</th>
+                <!--th style="text-align: center; border: 1px solid black;">List Price</th-->
+                <th style="text-align: center; border: 1px solid black;">Rate</th>
+                <th style="text-align: center; border: 1px solid black;">Amount</th>
+            </tr>
+            <apex:variable value="{!0}" var="counter"/>
+            <apex:variable value="{!0.0}" var="totalAmount"/>
+            <apex:repeat value="{!quoteLineItems}" var="qli">
+                <tr>
+                    <td style="text-align: center; border: 1px solid black;">{!counter + 1}</td>                   
+                    <!--td style="text-align: left; border: 1px solid black;">
+                            Test Code : {!qli.Product_Code__c}<br/>
+                        	Method : {!qli.Test_Method__c}
+                        </td-->
+                    <td style="text-align: left; border: 1px solid black;">
+                            Test Code : {!qli.Product_Code__c}<br/>
+                        	Method :
+                       <apex:outputPanel style="font-family: Arial, sans-serif;"><apex:outputText value="{!qli.Test_Method__c}" escape="false"/></apex:outputPanel> 
+                        </td>
+                    <td style="text-align: center; border: 1px solid black;">{!qli.ProductId__r.Name}</td>
+                    <td style="text-align: center; border: 1px solid black;">{!ROUND(qli.Quantity__c, 0)}.00</td>
+                    <!--td style="text-align: center; border: 1px solid black;">{!qli.List_Price__c}</td-->
+                    <td style="text-align: center; border: 1px solid black;">{!qli.Sales_Price__c}.00</td>
+                    <td style="text-align: center; border: 1px solid black;">{!qli.Subtotal__c}.00</td>
+                </tr>
+                <apex:variable var="counter" value="{!counter + 1}"/>
+                <apex:variable var="totalAmount" value="{!totalAmount + qli.Total_Price__c}"/>
+            </apex:repeat>
+            <tr>
+                <td colspan="5" style="border:1px solid black;border-collapse: collapse; text-align: right"><b> <span >Total </span></b></td>
+                <td style="border:1px solid black;border-collapse: collapse;">{!ROUND(totalAmount, 0)}.00</td>
+            </tr>
+            
+            <apex:outputText rendered="{!Quote.Include_Discount__c == true}">
+                <tr>
+                    <td colspan="5" style="border:1px solid black;border-collapse: collapse; text-align: right"><b> <span >Discount (%) ({!ROUND(discountPercentage, 0)}%)</span></b></td>
+                    <td style="border:1px solid black;border-collapse: collapse;">{!ROUND(discountAmount, 0)}.00</td>
+                </tr>
+            </apex:outputText>
+            <apex:outputText rendered="{!Quote.Include_GST__c == true}">
+                <tr>
+                    <td colspan="5" style="border:1px solid black;border-collapse: collapse; text-align: right"><b> <span >GST (%) ({!ROUND(gstPercentage, 0)}%)</span></b></td>
+                    <td style="border:1px solid black;border-collapse: collapse;">{!ROUND(gstAmount, 0)}.00</td>
+                </tr>
+            </apex:outputText>
+            
+            <tr>
+                <td colspan="5" style="border:1px solid black;border-collapse: collapse; text-align: right">
+                    <b>Grand Total</b>
+                </td>
+                <td style="border:1px solid black;border-collapse: collapse;">
+                    {!ROUND(grandTotal, 0)}.00
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" style="text-align: left; border: 1px solid black;"><b>AMOUNT IN WORD: </b>&nbsp;  INR.  {!totalAmountWords} ONLY </td>
+            </tr>
+            
+        </table>
+        
+         <apex:outputText rendered="{!quote.Sample_Requirement__c !=null}" escape="false">
+            <table style="width:100%;border:1px solid black;border-collapse: collapse;">
+                <tr>
+                    <td >
+                        <b>Requirement from Study Sponsor : </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <apex:outputText value="{!quote.Sample_Requirement__c}" escape="false" />
+                    </td>
+                </tr>
+            </table>
+        </apex:outputText>
+            
+            <apex:outputText rendered="{!quote.Sample_Quantity__c !=null}" escape="false">
+            <table style="width:100%;border:1px solid black;border-collapse: collapse;">
+                <tr>
+                    <td >
+                        <b>Sample Quantity : </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <apex:outputText value="{!quote.Sample_Quantity__c}" escape="false" />
+                    </td>
+                </tr>
+            </table>
+        </apex:outputText>
+            
+            <apex:outputText rendered="{!quote.Note__c !=null}" escape="false">
+            <table style="width:100%;border:1px solid black;border-collapse: collapse;">
+                <tr>
+                    <td >
+                        <b>Additional Notes : </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <apex:outputText value="{!quote.Note__c}" escape="false" />
+                    </td>
+                </tr>
+            </table>
+        </apex:outputText>
+            <apex:outputText rendered="{!quote.TAT__c !=null}" escape="false">
+            <table style="width:100%;border:1px solid black;border-collapse: collapse;">
+                <tr>
+                    <td >
+                        <b>TAT : </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <apex:outputText value="{!quote.TAT__c}" escape="false" />
+                    </td>
+                </tr>
+            </table>
+        </apex:outputText>
+        
+        <div style="page-break-after: always"/>
+        
+        <div style = "font-size: 15px;">
+            <div style="margin-bottom: 10px; margin-top: 20px"><strong>Note:</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  If Method is not feasible, Method Feasibility charges will be applicable as above</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  Study protocol will be share, after completion of Method Feasibility successfully. </Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  If data is required for any regulatory submission, we need to opt for at-least one of:</Span>
+                <Span class="content" style="display: block; margin-bottom: 5px;">•  A: Method Validation B: Method Verification C: Method Transfer  <br/>
+                <span style="margin-left:8px;">If sponsor does not opt. any option from above, the report will be with comments “The Analytical Method Validation /
+                    <span style="margin-left:8px;"> Verification/ Method Transfer have not been performed at Analytical Solutions”</span> </span> 
+            </Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  All method developed at sponsor’s end/ Vendor’s end, or Pharmacopoeia, we will have to check feasibility with 100% 
+                <span style="margin-left:8px;">recovery to check if method is proper or not, hence Method Feasibility will be applicable to all Methods supplied by</span>
+                <span style="margin-left:8px;">Sponsor, vendor or Pharmacopoeia methods.</span> </Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  In-case of OOS/OOT, we will perform investigation as per internal SOP &amp; conclude, however if sponsor wishes to 
+                <span style="margin-left:8px;">have the investigation report copy, he has to pay the applicable charges.</span></Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  If Method is not feasible, Method Feasibility charges will be applicable as above</Span>
+            
+            <div style="margin-bottom: 10px; margin-top: 15px"><strong>Terms &amp; Conditions:</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.T_C_1__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.T_C_2__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.T_C_3__c}</Span>
+            
+            <div style="margin-bottom: 10px; margin-top: 15px"><strong>Payment Terms</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  100% upon completion of analysis &amp; before sharing of draft report.</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  All Invoices payment will be process within 30 days.</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  All Invoice payment will be non-refundable. </Span>
+            
+            <div style="margin-bottom: 10px; margin-top: 15px"><strong>Project Cancellation:</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  20% after sharing of Study Protocols. </Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  50% after study initiation.</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  100% after completion of Whole Study. </Span>
+            
+            <div style="margin-bottom: 10px; margin-top: 15px"><strong>Customer Support:</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.C_S_1__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.C_S_2__c}</Span>
+        </div>
+        
+        <div style="page-break-after: always"/>
+        
+        <div style="margin-bottom: 10px; margin-top: 15px"><strong>Sponsor Details:</strong></div>
+        <Span class="content" style="display: block; margin-bottom: 5px;">{!quote.AccountId__r.Name}</Span>
+        <Span class="content" style="display: block; margin-bottom: 5px;">{!quote.ContactId__r.Email}</Span>
+        
+        <!-- Statutory Details Section (Table) -->
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;margin-top: 20px;">
+            <tr>
+                <td style="border: 1px solid #000; padding: 5px;">GST No.</td>
+                <td style="border: 1px solid #000; padding: 5px;">27AAACI1188E1ZR &amp; SAC No. 998111 <b>(GST @ 18% will be applicable)</b></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #000; padding: 5px;">Udyam Regn. No.</td>
+                <td style="border: 1px solid #000; padding: 5px;">UDYAM-MH-33-0000948</td>
+            </tr>
+        </table>
+        
+        
+        <div style="display: inline-block;margin-top: 20px;font-size: 15px;">
+            <span style="font-weight: bold;"><b>Sample Dispatch Address:</b></span>
+            <span>{!NotesandTerms.Sample_Dispatch_Address__c}</span>
+        </div>
+        
+        <div style = "font-size: 15px; margin-top:20px">
+            Please let me know if you have any questions.
+        </div>
+        
+        <div>
+            <div style="margin-bottom: 10px;font-size: 15px;margin-top:10px"><strong>For Analytical Solutions</strong></div>
+            <Span class="content" style="display: block;font-size: 15px;">Dr. A. J. Vaidya </Span>
+        </div>
+        
+    </html>
+    
+</apex:page>

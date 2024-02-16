@@ -1,0 +1,30 @@
+<template>
+    <template if:true={isLineItemModalOpen}>
+    <lightning-quick-action-panel header="Edit Quote LineItems">
+            <lightning-input  label="Search Product Family" value={searchTerm} placeholder="Search Products with It's family" onchange={handleSearch}></lightning-input>
+                    <lightning-datatable class="slds-p-around_medium"
+                    key-field="id"
+                    data={oppLineItems}
+                    columns={columns}
+                    onrowselection={handleRowSelection}>
+                    </lightning-datatable>
+
+        <div slot="footer">
+            <lightning-button
+                variant="neutral"
+                label="Cancel"
+                onclick={handleCancel}
+            ></lightning-button>
+            <lightning-button
+                variant="brand"
+                label="Next"
+                onclick={handleNext}
+                class="slds-m-left_x-small"
+            ></lightning-button>
+        </div> 
+    </lightning-quick-action-panel>
+    </template>
+    <template if:true={isShowSelectedItems}>
+        <c-update-quote-line-items selected-rows={selectedRows} record-id={recordId} onclose={modalCloseHandler}></c-update-quote-line-items>
+    </template>
+</template>

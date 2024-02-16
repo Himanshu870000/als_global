@@ -1,0 +1,47 @@
+<template>
+    <div class="slds-card slds-box">
+        <template if:false={isAddressVisible}>
+        <lightning-record-edit-form object-api-name="Opportunity1__c"
+                                onsuccess={handleSuccess}
+                                onsubmit = {handleSubmit}
+                                onerror={handleError}>
+                <lightning-layout multiple-rows>
+                <lightning-layout-item size="6">
+                    <lightning-input-field field-name="AccountId__c"></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field field-name="StageName__c"></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field field-name="Type__c"></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field field-name="Name"></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field field-name="CloseDate__c"></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <div class="slds-m-top_large slds-grid slds-grid_align-center">
+                    <lightning-button variant="neutral"
+                                        label="Cancel"
+                                        title="Cancel"
+                                        type="text"
+                                        onclick={handleCancel}
+                                        class="slds-m-right_small"></lightning-button>
+                    <lightning-button variant="brand"
+                                        label="Next"
+                                        title="Submit"
+                                        type="submit"></lightning-button>
+                    </div>
+                </lightning-layout-item>
+                </lightning-layout>
+        </lightning-record-edit-form>
+        </template>
+
+        <template if:true={isAddressVisible}>
+            <c-select-mutiple-address-on-opportunity record-id={recordId}></c-select-mutiple-address-on-opportunity>
+        </template>
+
+    </div>
+</template>

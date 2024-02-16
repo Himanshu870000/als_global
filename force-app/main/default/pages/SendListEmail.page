@@ -1,0 +1,1 @@
+<apex:page standardController="Lead__c" recordSetVar="Lead__c" extensions="SendListEmail" action="{!redirectToLComp}"/>

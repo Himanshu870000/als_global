@@ -1,0 +1,19 @@
+.dummy{
+	color : black;
+}
+
+.fixedInputWidth {
+    width: 100px; /* Set your desired fixed width */
+}
+
+.multiline-name {
+    max-width: 150px; /* Adjust the max-width as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.multiline-name:hover {
+    white-space: normal;
+    word-wrap: break-word;
+}

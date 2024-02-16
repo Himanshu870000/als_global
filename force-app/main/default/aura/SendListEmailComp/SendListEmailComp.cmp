@@ -1,0 +1,8 @@
+<aura:component   implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+                access="global" controller="SendListEmail"> 
+     <aura:attribute name="conList" type="Contact[]"/>
+    <aura:attribute name="conSelectedId" type="List" default="[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}" />
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}" />
+	
+</aura:component>

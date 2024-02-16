@@ -1,0 +1,192 @@
+<apex:page applyHtmlTag="false" docType="html-5.0" applyBodyTag="false" showHeader="false" sidebar="false" standardController="Opportunity1__c" renderAs="pdf" extensions="PerformaInvoiceController">
+    <html>
+        <head>
+            <style type="text/css">
+                @page {
+                padding-left: 5px;    
+                padding-right: 5px;      
+                }
+                
+                th {  
+                font-weight: bold;
+                text-align: center;
+                color: black;
+                padding: 8px;
+                }
+                
+                td {    
+                font-size: 15px;
+                text-align: left;
+                padding: 8px;
+                }
+                
+                table{
+                border-collapse: collapse;
+                }
+                
+                table, th, td {
+                border: 1px solid black;
+                }
+                
+                .line-1 {
+                height: 1px;
+                background: black;
+                width:347px;
+                }
+                
+                .vl {
+                height: 40px;
+                margin-left: 50%;
+                
+                top: -10px;
+                }
+                
+                .v2 {
+                border-left: 1px solid;
+                height: 110px;
+                position: absolute;
+                right: 6%;
+                top: 212px;
+                }
+                
+                .v3 {
+                border-left: 1px solid;
+                height: 128px;
+                position: absolute;
+                right: 1%;
+                top: 320px;
+                }
+                
+            </style>
+        </head>
+        <body>
+            <table style="width:100%; table-layout: fixed;border: 1px solid black;">
+                <tr style="font-family: sans-serif;">
+                    <th style="font-size: 12px;">PROFORMA INVOICE</th>
+                </tr>
+            </table>
+            
+            <table style="width:100%; table-layout: fixed;">
+                <tr>
+                    <td style="width:50%;border: 1px solid black;">
+                        <div style="margin-top:-5px; ">
+                            <b>ALS Testing Services India Pvt Ltd:</b> <br/>
+                            <span style="font-size:12px;">No.65 Bommasandra Jigani Link Road KIADB</span>  <br/>
+                            <span style="font-size:12px;"> Industrial Area ,Bangalore</span> <br/>
+                            <span style="font-size:12px;">GSTIN/UIN: 29AAQCA1720Q1Z4</span><br/>
+                            <span style="font-size:12px;word-wrap: break-word"> State Name : Karnataka, Code : 29 </span> <br/>
+                            <span  style="font-size:12px;">CIN: U74999KA2017FTC107474</span><br/>
+                            <span style="font-size:12px;">E-Mail : customer service@ALSGlobal.com www.alsglobal.com</span>  <br/>  <br/> 
+                            
+                            To, <br/> 
+                            <apex:repeat value="{!opportunityContactRole}" var="contactRole">
+                                <span style="font-size:14px;"> {!contactRole.Contact__r.Name}</span>, <br/>
+                                <span style="font-size:13px;"> {!contactRole.Contact__r.MailingStreet}, {!contactRole.Contact__r.MailingCity},{!contactRole.Contact__r.MailingState}</span> <br/>
+                                <span style="font-size:13px;"> {!contactRole.Contact__r.MailingPostalCode} {!contactRole.Contact__r.MailingCountry}</span>, <br/>
+                            </apex:repeat>
+                            
+                        </div>
+                    </td>
+                    <td style="width:50%; font-size: 12px;">
+                        <apex:repeat value="{!Quotes}" var="quote">
+                            <div style="margin-top: -10px; margin-left: -1%;">
+                                Quote No. :  <br/>
+                                {!quote.Name} <br/>
+                            </div>
+                            <br/>
+                            <div class="vl">
+                                <div style="margin-top: -42px; margin-left: 2%;">
+                                    Dated:  <br/> 
+                                    <apex:outputText value="{0,date,MMMM d',' yyyy}">
+                                        <apex:param value="{!quote.CreatedDate}" />
+                                    </apex:outputText>
+                                </div>
+                            </div>
+                        </apex:repeat>
+                        <div class="line-1" style="margin-left: -2.5%;"></div>
+                        <div style="margin-top: 2px; margin-left: -1%;">
+                            Buyer's Order No. &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;                                <span>{!getOpportunityDetails.PO_Number__c}</span>
+                            <br/> 
+                        </div><br/>
+                        <div class="line-1" style="margin-left: -2.5%;"></div>
+                        <div style=" margin-left: -1%;font-weight:bold;">
+                            <b> Bank Details: </b> <br/>  <br/>
+                            <b> {!BankDetails.Name_of_Beneficiary__c} </b> <br/>  <br/>
+                            <span  style="margin-top: 25px;">Bank name : {!BankDetails.Bank_Name__c}</span> <br/>
+                            <span  style="margin-top: 25px;">Bank Address : {!BankDetails.Address__c}</span> <br/>
+                            <span  style="margin-top: 25px;">Account no : {!BankDetails.Bank_Account_Number__c}</span> <br/>
+                            <span  style="margin-bottom: 5px;">IFSC : {!BankDetails.IFSC_Code__c}</span> <br/>
+                            <span  style="margin-bottom: 5px;">Swift code : {!BankDetails.Swift_code__c}</span> <br/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%;border:1px solid black;border-collapse:collapse;">
+                <tr>
+                    <th  style="border:1px solid black;background-color: #dddddd;width:5px;text-align:center;font-size:12px;"> SI No.</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">Product Name</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">Product Code</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">HSN Code</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:20px;">QTY</th> 
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:30px;">Amount</th>
+                </tr>
+                <apex:variable var="index" value="{!0}" />
+                <apex:repeat value="{!OpportunityLineItemList}" var="lineItems">
+                    <tr>
+                        <apex:variable var="index" value="{!(index+1)}"/>
+                        <td style="border:1px solid black;width:5px;text-align:center;"><apex:outputText value="{!index}"/></td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;width:25px;text-align:center;">{!lineItems.Product1Id__r.Name}</td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;font-size:12px"> {!lineItems.Product1Id__r.ProductCode__c} </td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;font-size:12px"> {!lineItems.Product1Id__r.HSN_CODE__c} </td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;width:20px;text-align:center;">{!lineItems.Quantity__c} </td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;">{!lineItems.TotalPrice__c}</td>
+                    </tr>
+                </apex:repeat>
+                
+            </table>
+            <table style="width:100%;border:1px solid black;border-collapse:collapse;">
+                <tr>
+                    <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:15px;"><b>Subtotal</b></td>
+                    <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:16px;"><b>{!Subtotal}</b></td>
+                </tr>
+               
+                <apex:outputText rendered="{!getOpportunityDetails.Enable_IGST__c == true }">
+                    <tr>
+                        <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:15px;"><b>IGST @ 18%</b></td>
+                        <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:16px;"><b>{!IGST}</b></td>
+                    </tr>
+                </apex:outputText>
+                <apex:outputText rendered="{!NOT(getOpportunityDetails.Enable_IGST__c)}">
+                    <tr>
+                        <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:15px;"><b>CGST @ 9%</b></td>
+                        <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:16px;"><b>{!Subtotal * 0.09}</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:15px;"><b>SGST @ 9%</b></td>
+                        <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:16px;"><b>{!Subtotal * 0.09}</b></td>
+                    </tr>
+                </apex:outputText>
+                <tr>
+                    <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:15px;"><b>Grand Total</b></td>
+                    <td colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:16px;"><b>{!GrandTotal}</b></td>
+                </tr>
+            </table>
+             <table style="width:100%;border:1px solid black;border-collapse:collapse;">
+                    <tr>
+                        <td style="border:1px solid black;width:50%;padding:10px;">Declaration</td>
+                        <td style="border:1px solid black;width:50%;padding:10px;">for ALS Testing Services India Pvt Ltd</td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black;width:50%;padding:10px;border-top: hidden;text-align:center;">
+                           We declare that this invoice shows the actual price of the goods
+                           
+                        </td>
+                        <td style="border:1px solid black;width:50%;padding:10px;border-top: hidden;text-align:center;">
+                            Authorised Signatory <br/>
+                            <hr/>
+                        </td>
+                    </tr>                    
+                </table>
+        </body>
+    </html>
+</apex:page>

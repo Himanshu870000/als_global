@@ -1,0 +1,38 @@
+<template>
+     <template if:true={showErrorCustomerSuccess}>
+     <center style="text-align: center; padding-top: 2rem;">
+          <h2 style=" font-size: 25px;text-align: center;font-family: serif;">Please provide Customer Success Value .</h2> <br/>
+          <div class="slds-align_absolute-center">
+               <lightning-button-group>
+                 <span style="margin-right:20px;margin-bottom: 1rem ">
+               <lightning-button  variant="brand" label="Ok" onclick={closeModal} class="slds-m-top_small slds-m-bottom_medium slds-m-left_x-small" ></lightning-button> 
+                 </span>
+               </lightning-button-group> 
+             </div> 
+        </center>
+     </template>
+     <template if:true={showErrorContactPerson}>
+      <center style="text-align: center; padding-top: 2rem;">
+           <h2 style=" font-size: 25px;text-align: center;font-family: serif;">Please provide Contact Person Value .</h2> <br/>
+           <div class="slds-align_absolute-center">
+                <lightning-button-group>
+                  <span style="margin-right:20px;margin-bottom: 1rem ">
+                <lightning-button  variant="brand" label="Ok" onclick={closeModal} class="slds-m-top_small slds-m-bottom_medium slds-m-left_x-small" ></lightning-button> 
+                  </span>
+                </lightning-button-group> 
+              </div> 
+         </center>
+      </template>
+      <template if:true={showErrorContactPersonORCustomerSUCCESS}>
+        <center style="text-align: center; padding-top: 2rem;">
+             <h2 style=" font-size: 25px;text-align: center;font-family: serif;">Please provide Contact Person and Customer Success Value .</h2> <br/>
+             <div class="slds-align_absolute-center">
+                  <lightning-button-group>
+                    <span style="margin-right:20px;margin-bottom: 1rem ">
+                  <lightning-button  variant="brand" label="Ok" onclick={closeModal} class="slds-m-top_small slds-m-bottom_medium slds-m-left_x-small" ></lightning-button> 
+                    </span>
+                  </lightning-button-group> 
+                </div> 
+           </center>
+        </template>
+</template>

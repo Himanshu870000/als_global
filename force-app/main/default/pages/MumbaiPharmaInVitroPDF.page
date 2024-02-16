@@ -1,0 +1,289 @@
+<apex:page applyHtmlTag="false" docType="html-5.0" applyBodyTag="false" showHeader="false" sidebar="false" standardController="Quote_C__c" renderAs="pdf" extensions="MumbaiPharmaController">
+    <html>
+        <head>
+            <style>
+                @page {
+                margin-top: 3cm;
+                margin-bottom:3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+                
+                @top-center {
+                content: element(header);
+                }
+                @bottom-left {
+                content: element(footer);
+                }
+                }
+                
+                div.header {
+                padding: 10px;
+                position: running(header);
+                }
+                div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+                }
+                .pagenumber:before {
+                content: counter(page);
+                }
+                .pagecount:before {
+                content: counter(pages);
+                }
+                div.content {
+                border-style:dotted;
+                float: left;
+                width: 100%;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="footer" style="margin-left: auto; margin-right: auto;">
+                <div class="number" Style="float:right; font-size: 15px;">Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+                <br/>
+                <hr style="border-top: 1px solid #20B2AA;" />
+                <div class="left-footer" style="float: left; font-size: 15px; color: #888; user-select: none;">Right Solutions . Right Partner</div>
+                <div class="right-footer" style="float: right; font-size: 15px; color: navy; user-select: none;">
+                    <a href="http://www.alsglobal.com" target="_blank" style="color: navy; text-decoration: none;">www.alsglobal.com</a>
+                </div>
+            </div>
+            
+            
+            <div class="header">
+                
+                <div style="display: inline-block; width: 100%; margin: 1rem; padding: 2rem 2rem; padding-top: 10px; font-family: Noto Sans, Helvetica, sans-serif; margin-left: 30px;">
+                    <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 60%;">
+                        <apex:image url="{!$Resource.ALS_Mumbai_logo}" width="190" height="60" /><br/>
+                    </div>
+                    <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 40%; font-size: 12px;">
+                        <span>
+                            Analytical Solutions<br />
+                            (A div. of Indtech Instruments Pvt. ltd)<br />
+                             B-22 MIDC TTC. Ind. Area, Chinchavali<br />
+                            Navi Mumbai – 400708<br />
+                        </span>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #D3D3D3;" />
+                
+                
+            </div>
+        </body>
+        
+            <!-- Quote Information -->
+            <div style="display: inline-block; width: 100%; margin: 1rem; padding: 2rem 2rem;font-size: 15px;">
+                <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 60%;">
+                    <table>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap"><span><b>Qutation No.</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span style="font-weight: normal;">{!quote.Quote_Name__c}</span></td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 40%;">
+                    <table>
+                        
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Quotation Date :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap; "><span style="font-weight: normal;"><apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!quote.CreatedDate}" /></apex:outputText></span></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                        
+                    </table>
+                </div>
+            </div>
+            <!-- Client and Project Information -->
+        <div style = "font-size: 15px;">
+            
+            <div style="margin-bottom: 10px;"><strong>To</strong></div>
+            <span class="content" style="display: block;margin-bottom: 10px;">{!quote.ContactId__r.Name}</span>
+            
+            <div style="margin-bottom: 10px;">
+                <span class="content" style="display: block;margin-bottom: 40px;">{!quote.AccountId__r.Name} <br/>
+                    {!quote.OpportunityId__r.Billing_Address__Street__s},{!quote.OpportunityId__r.Billing_Address__PostalCode__s},{!quote.OpportunityId__r.Billing_Address__City__s}<br/>
+                    {!quote.OpportunityId__r.Billing_Address__StateCode__s}{!quote.OpportunityId__r.Billing_Address__CountryCode__s}
+                </span>
+            </div>
+            
+            <div style="margin-bottom: 10px;"><strong>Project Name: </strong></div>
+            <span class="content" style="display: block;margin-bottom: 40px;">{!quote.Subject__c}</span>
+            
+            <!-- Introduction -->
+            <div style="margin-bottom: 10px;font-size: 15px;">
+                <span class="content" style="display: block;margin-bottom: 10px;"><strong>Dear, {!quote.ContactId__r.Name}</strong></span>
+                <span class="content" style="display: block;margin-bottom: 40px;">Thank-you very much for your interest in our services, we are pleased to submit our offer for (Scope of work).</span>
+            </div>
+            
+        </div>
+            <!-- About Us Section -->
+        <div style="margin-bottom: 10px;font-size: 15px;"><strong>About us: </strong></div>
+        <div style = "font-size: 15px;">
+            <Span class="content" style="display: block;margin-bottom: 10px"> {!ABOUTUS.About_Us_1__c}</Span>
+            <Span class="content" style="display: block;margin-bottom: 10px"> {!ABOUTUS.About_Us_2__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 10px"> {!ABOUTUS.About_Us_3__c}</Span>
+            <Span class="content" style="display: block;margin-bottom: 10px"> {!ABOUTUS.About_Us_4__c}</Span>
+            <Span class="content" style="display: block;margin-bottom: 10px"> {!ABOUTUS.About_Us_5__c}</Span>
+            <Span class="content" style="display: block;margin-bottom: 10px"> {!ABOUTUS.About_Us_6__c}</Span>
+            <Span class="content" style="display: block;margin-bottom: 10px"> {!ABOUTUS.About_Us_7__c}</Span>
+            <div style="display: inline-block;margin-top: 20px">
+                <span style="font-weight: bold;">Guidelines:</span>
+                <span>{!ABOUTUS.Guidelines_FDA__c}</span>
+            </div>
+        </div>
+            <!-- (Continue with the rest of the content) -->
+        <div style="font-size: 15px;margin-top: 20px;">
+            <div style="text-align: center; font-weight: bold; margin-top: 10px; margin-bottom: 10px"><u>In-Vitro BE studies with Analytical Solutions-An Assurance</u></div>
+            <div>
+                <span style="display: block;margin-bottom: 10px;">{!vitro.In_Vitro1__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!vitro.In_Vitro_2__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!vitro.In_Vitro_3__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!vitro.In_Vitro_4__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!vitro.In_Vitro_5__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!vitro.In_Vitro_6__c}</span>
+                <div style="margin-left: 20px;">
+                    <span style="display: block; margin-bottom: 10px;">1. {!vitro.In_Vitro_6_1__c}</span>
+                    <span style="display: block; margin-bottom: 10px;">2. {!vitro.In_Vitro_6_2__c}</span>
+                    <span style="display: block; margin-bottom: 10px;">3. {!vitro.In_Vitro_6_3__c}</span>
+                    <span style="display: block; margin-bottom: 10px;">4. {!vitro.In_Vitro_6_4__c}</span>
+                    <span style="display: block; margin-bottom: 10px;">5. {!vitro.In_Vitro_6_5__c}</span>
+                    <div style="margin-left: 20px;">
+                        <span style="display: block; margin-bottom: 5px;">{!vitro.In_Vitro_5_1__c}</span>
+                        <span style="display: block; margin-bottom: 5px;">{!vitro.In_Vitro_5_2__c}</span>
+                        <span style="display: block; margin-bottom: 5px;">{!vitro.In_Vitro_5_3__c}</span>
+                        <span style="display: block; margin-bottom: 5px;">{!vitro.In_Vitro_5_4__c}</span>
+                        <span style="display: block; margin-bottom: 5px;">{!vitro.In_Vitro_5_5__c}</span>
+                        <span style="display: block; margin-bottom: 5px;">{!vitro.In_Vitro_5_6__c}</span>
+                        <span style="display: block; margin-bottom: 5px;">{!vitro.In_Vitro_5_7__c}</span>
+                        <span style="display: block; margin-bottom: 5px;">{!vitro.In_Vitro_5_8__c}</span>
+                        <span style="display: block; margin-bottom: 5px;">{!vitro.In_Vitro_5_9__c}</span>
+                    </div>		
+                    <span style="display: block; margin-bottom: 10px;margin-top: 10px;">6. {!vitro.In_Vitro_6_6__c}</span>
+                    <span style="display: block; margin-bottom: 10px;">7. {!vitro.In_Vitro_6_7__c}</span>
+                </div>		
+            </div>
+        </div>
+            
+            <div style="text-align: center; font-weight: bold; margin-top: 10px; margin-bottom: 10px;font-size: 15px;"><u>Scope of work</u></div>
+            <div style = "font-size: 15px;">
+                <span style="display: block;margin-bottom: 10px;">{!vitro.Scope_1__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!vitro.Scope_2__c}</span>              
+            </div>
+            
+        
+        <div Style = "font-size: 15px;" >       
+            <div style="margin-bottom: 10px;"><strong><u>Stage I : Method Development</u></strong></div>
+            <Span class="content" style="display: block;margin-bottom: 10px"> {!vitro.Stage_1__c}</Span>
+            <div style="margin-bottom: 10px;"><strong><u>Stage II: Method validation</u></strong></div>
+            <Span class="content" style="display: block; margin-bottom: 10px"> {!vitro.Stage_2__c}</Span>
+            <div style="margin-bottom: 10px;"><strong><u>Stage III: Pivotal study</u></strong></div>
+            <Span class="content" style="display: block;margin-bottom: 10px">{!vitro.Stage_3__c}</Span>
+            <Span class="content" style="display: block;margin-bottom: 10px"><b>{!vitro.Stage_3_1__c}</b></Span>
+            <Span class="content" style="display: block;margin-bottom: 10px"><b>{!vitro.Satge_3_2__c}</b></Span>
+            <div style="margin-bottom: 10px;"><strong><u>Stage IV: Pilot study (Optional)</u></strong></div>
+            <Span class="content" style="display: block;">{!vitro.Stage_4__c}</Span>
+        </div>
+            
+            <!-- Product Table -->
+             <table style="border-collapse: collapse;margin-top: 20px; margin-bottom: 10px;" width="100%">
+               
+                <apex:variable value="{!0}" var="counter"/>
+                <apex:variable value="{!0.0}" var="totalAmount"/>
+                <apex:repeat value="{!quoteLineItems}" var="qli">
+                    <tr>
+                        <td style="text-align: center; border: 1px solid black;">{!counter + 1}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.ProductId__r.Name}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.ProductId__r.ProductCode__c}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!ROUND(qli.Quantity__c, 0)}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.List_Price__c}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.Sales_Price__c}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.Total_Price__c}</td>
+                    </tr>
+                    <apex:variable var="counter" value="{!counter + 1}"/>
+                    <apex:variable var="totalAmount" value="{!totalAmount + qli.Total_Price__c}"/>
+                </apex:repeat>
+                 <tr>
+                    <td colspan="7" style="text-align: right; border: 1px solid black;"><b> <span >Total </span></b> &nbsp; &nbsp; &nbsp; &nbsp; <span style=""> {!ROUND(totalAmount, 0)}</span> </td>
+                </tr>
+                
+                 <apex:outputText rendered="{!Quote.Include_GST__c == true}">
+                <tr>
+                    <td colspan="7" style="text-align: right; border: 1px solid black;"><b> <span >GST (%) ({!ROUND(gstPercentage, 0)}%)</span></b> &nbsp; &nbsp; &nbsp; &nbsp; <span>{!ROUND(gstAmount, 0)}</span> </td>
+                </tr>
+                </apex:outputText>
+                 <apex:outputText rendered="{!Quote.Include_Discount__c == true}">
+                <tr>
+                    <td colspan="7" style="text-align: right; border: 1px solid black;"><b> <span style="margin-right:25px;">Discount (%) ({!ROUND(discountPercentage, 0)}%)</span> </b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span>{!ROUND(discountAmount, 0)}</span> </td>
+                </tr>
+                </apex:outputText>
+                <tr>
+                    <td colspan="7" style="text-align: right; border: 1px solid black;"><b> <span style="margin-right:60px;">Grand Total</span></b> &nbsp; &nbsp; &nbsp; &nbsp; <span>{!ROUND(grandTotal, 0)}</span> </td>
+                </tr>
+                  <tr>
+                    <td colspan="7" style="text-align: right; border: 1px solid black;"><b>AMOUNT IN WORD: </b>&nbsp; &nbsp; &nbsp; INR.  {!totalAmountWords} ONLY </td>
+                </tr>
+                
+            </table>
+        
+        <div style = "font-size: 15px;">
+            <div style="margin-bottom: 10px; margin-top: 20px"><strong>Note:</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.Note_1__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.Note_2__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.Note_3__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.Note_4__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.Note_5__c}</Span>
+            
+            <div style="margin-bottom: 10px; margin-top: 15px"><strong>Terms &amp; Conditions:</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.T_C_1__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.T_C_2__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.T_C_3__c}</Span>
+            
+            <div style="margin-bottom: 10px; margin-top: 15px"><strong>Payment Terms</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.P_T_1__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.P_T_1__c}</Span>
+            
+            <div style="margin-bottom: 10px; margin-top: 15px"><strong>Project Cancellation:</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.P_C_1__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.P_C_2__c}</Span>
+            
+            <div style="margin-bottom: 10px; margin-top: 15px"><strong>Customer Support:</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.C_S_1__c}</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">•  {!NotesandTerms.C_S_2__c}</Span>
+            
+            
+            <div style="margin-bottom: 10px; margin-top: 15px"><strong>Sponsor Details:</strong></div>
+            <Span class="content" style="display: block; margin-bottom: 5px;">Navneet shukla(hardcoded)</Span>
+            <Span class="content" style="display: block; margin-bottom: 5px;">navneetshukla095@gmail.com(Hard coded)</Span>
+            
+        </div>
+            <!-- Statutory Details Section (Table) -->
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;margin-top: 20px;">
+                <tr>
+                    <td style="border: 1px solid #000; padding: 5px;">GST No.</td>
+                    <td style="border: 1px solid #000; padding: 5px;">27AAACI1188E1ZR &amp; SAC No. 998111 <b>(GST @ 18% will be applicable)</b></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; padding: 5px;">Udyam Regn. No.</td>
+                    <td style="border: 1px solid #000; padding: 5px;">UDYAM-MH-33-0000948</td>
+                </tr>
+            </table>
+            
+            
+            <div style="display: inline-block;margin-top: 20px;font-size: 15px;">
+                <span style="font-weight: bold;"><b>Sample Dispatch Address:</b></span>
+                <span>{!NotesandTerms.Sample_Dispatch_Address__c}</span>
+            </div>
+            
+            <div style = "font-size: 15px; margin-top:20px">
+                Please let me know if you have any questions.
+            </div>
+        
+        <div>
+            <div style="margin-bottom: 10px;font-size: 15px;margin-top:10px"><strong>For Analytical Solutions</strong></div>
+            <Span class="content" style="display: block;font-size: 15px;">Dr. A. J. Vaidya </Span>
+        </div>
+        
+    </html>
+    
+</apex:page>

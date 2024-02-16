@@ -1,0 +1,20 @@
+<template>
+    <lightning-quick-action-panel header="Update Negotiation Notes">
+        <lightning-textarea value={fieldValue} 
+        label={fieldLabel} 
+        label-visible
+        required={required} 
+        formats={allowedFormats} 
+        valid={validity}
+        class="visibleLines"
+        onchange={handleChange}             
+        share-with-entity-id={recordId}
+        message-when-bad-input={errorMessage}>
+</lightning-textarea>
+             <div slot="footer" class="slds-align_absolute-center">
+                  <lightning-button variant="neutral" label="Cancel" onclick={closeQuickAction}></lightning-button>
+                  <lightning-button variant="brand" label="Update" onclick={submitAction}  class="slds-m-left_x-small"
+                  ></lightning-button>
+              </div>
+   </lightning-quick-action-panel>
+</template>

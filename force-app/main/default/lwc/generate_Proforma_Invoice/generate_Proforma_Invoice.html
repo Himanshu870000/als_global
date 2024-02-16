@@ -1,0 +1,50 @@
+<template>
+
+     <lightning-quick-action-panel style="background: lightsteelblue;">
+       <center>
+         <h2 style=" font-size: 2rem;text-align: center;font-family: serif;"> Generate Proforma Invoice</h2>
+       </center>
+ 
+       <template if:true={isShowButtonHide}>
+           
+               <lightning-combobox  label="Select Proforma Invoice" value={value} options={options} onchange={HandleChangeCertificate}> </lightning-combobox> <br/>
+             
+             <template if:true={isShowButton}>
+             <div class="slds-align_absolute-center">
+               <lightning-button-group>
+                 <span style="margin-right:20px;">
+              <lightning-button  variant="Neutral" label="Cancel" onclick={closeQuickAction} class="slds-m-top_small slds-m-bottom_medium slds-m-left_x-small" ></lightning-button> 
+                 </span>
+                 <span>
+             <lightning-button variant="brand" label="Next" onclick={HandleNextButton} class="slds-m-top_small slds-m-bottom_medium" ></lightning-button>                    
+                 </span>
+               </lightning-button-group>
+             </div> 
+           </template>
+         </template>
+ 
+           <div>
+           <template if:true={isShowPDFPreview}>
+ 
+             <template if:true={isShowPDFPreview}>
+               <iframe src={pdfLink} width="100%" height="700" style="border:none;">
+               </iframe>
+            </template>
+ 
+             <div class="slds-align_absolute-center">
+               <lightning-button-group>
+                 <span style="margin-right:20px;    margin-top: 10px;">
+              <lightning-button  variant="Neutral" label="Cancel" onclick={closeQuickAction} class="slds-m-top_small slds-m-bottom_medium slds-m-left_x-small" ></lightning-button> 
+                 </span>
+                 <span style="    margin-top: 10px;">
+             <lightning-button variant="brand" label="Save" onclick={HandleSumbit} class="slds-m-top_small slds-m-bottom_medium" ></lightning-button>                    
+                 </span>
+               </lightning-button-group>
+             </div> 
+           </template>
+         </div>
+         
+     </lightning-quick-action-panel>
+     
+ 
+ </template>

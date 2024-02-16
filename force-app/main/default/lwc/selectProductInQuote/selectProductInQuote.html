@@ -1,0 +1,31 @@
+<template>
+    <template if:true={isModalOpen}>
+        <lightning-quick-action-panel header="Choose Price Book">
+            <p>Select a Price Book to associate with this opportunity. 
+            You can add products only from the Price Book you associate with this opportunity. 
+            Changing the Price Book deletes all products from the opportunity.
+            </p>
+            <div>
+                        <lightning-select
+                            name="Price Book"
+                            label="Price Book"
+                            value={value}
+                            options={options}
+                            onchange={handleChange}
+                            required >
+                        </lightning-select>
+                    </div>
+        <div slot="footer">
+            <lightning-button
+                variant="brand"
+                label="Next"
+                onclick={handleClick}
+                class="slds-m-left_x-small"
+            ></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+    </template>
+    <template if:true={isProduct}>
+        <c-product-selection-screen is-product-pricebook={value} record-id={recordId} onclose={modalCloseHandler} onclosedover={closeGrandChild}></c-product-selection-screen>
+    </template>
+</template>

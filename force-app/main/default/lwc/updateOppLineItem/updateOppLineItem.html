@@ -1,0 +1,89 @@
+<template>
+    <template if:true={isEditOliOpen}>
+        <lightning-quick-action-panel header="Edit Products">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Name">Name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Quantity</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">List Price</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Unit Price</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Sub Total</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Discount (%)</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Discounted Price</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Total Price</div>
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Use template for:each to iterate over oliList -->
+            <template for:each={oppLineItems} for:item="item">
+                <tr key={item.Id}>
+                    <!-- Display Product Name -->
+                    <td data-label="Name">
+                        <div class="slds-truncate" title={item.Name}>{item.Name}</div>
+                    </td>
+                    <!-- Editable Quantity field -->
+                    <td data-label="Value">
+                        <lightning-input type="number" value={item.quantity}  data-id={item.Id} data-field="quantity" onchange={handleInputChange}></lightning-input>
+                    </td>
+                    <!-- Editable Sales Price field -->
+                    <td data-label="Value">
+                        <lightning-input type="number" value={item.salesPrice} label="" data-id={item.Id} data-field="salesPrice" onchange={handleInputChange}></lightning-input>
+                    </td>
+                    <!-- Non-editable List Price field -->
+                    <td data-label="Value">
+                        <div class="slds-truncate" title={item.listPrice}>{item.listPrice}</div>
+                    </td>
+                    <!-- Non-editable Total Value field -->
+                    <td data-label="Value">
+                        <div class="slds-truncate" title={item.totalValue}>{item.totalValue}</div>
+                    </td>
+                    <!-- Editable Discount field -->
+                    <td data-label="Value">
+                        <lightning-input type="number" value={item.discount} label="" data-id={item.Id} data-field="discount" onchange={handleInputChange}></lightning-input>
+                    </td>
+                    <!-- Non-editable Discounted Price field -->
+                    <td data-label="Value">
+                        <div class="slds-truncate" title={item.discountedPrice}>{item.discountedPrice}</div>
+                    </td>
+                    <td>
+                        <div>{item.discountedPrice}</div>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+
+        <div slot="footer">
+            <lightning-button
+                variant="neutral"
+                label="Cancel"
+                onclick={handleCancel}
+            ></lightning-button>
+            <lightning-button
+                variant="brand"
+                label="Save"
+                onclick={handleSave}
+                class="slds-m-left_x-small"
+            ></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+    </template>
+</template>

@@ -1,0 +1,87 @@
+<template>
+	<lightning-card>
+		<lightning-layout multiple-rows>
+			<lightning-layout-item size="2" padding="around-small" small-device-size="3" medium-device-size="6"
+				large-device-size="3">
+				<div class="slds-card"
+					style="width:100%;border-left: 1px solid rgb(221, 219, 218);   border-right: 1px solid rgb(221, 219, 218);   border-bottom: 1px solid rgb(221, 219, 218);   border-top: 1px solid rgb(221, 219, 218);padding:7px;">
+					<lightning-input type="file" label="CSV file" multiple="false" accept=".csv"
+						onchange={handleInputChange}></lightning-input>
+				</div>
+			</lightning-layout-item> 
+			<lightning-layout-item size="5" padding="around-small" small-device-size="3" medium-device-size="6"
+				large-device-size="3">
+				<lightning-Button label="Download In CSV" variant="Brand" icon-name="utility:download"
+					onclick={HandleDownLoad}></lightning-Button>
+				<br/>
+				<!--br/-->
+               
+				<!-- <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer slds-scrollable"
+					role="grid" style="width:fit-content;border: 1px solid black; ">
+					<thead>
+						<tr>
+							<th scope="col" height="22" style="width: 5rem;text-align: center;">First Name</th>
+							<th scope="col" height="22" style="width: 5rem;text-align: center;">Last Name</th>
+							<th scope="col" height="22" style="width: 5rem;text-align: center;">Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<template for:each={ProspectList} for:item="rec">
+							<tr key={rec.Id} class="slds-hint-parent">
+								<td>
+									<div class="slds-truncate" title={rec.First_Name__c} style="text-align: center;">
+										{rec.First_Name__c}</div>
+								</td>
+								<td>
+									<div class="slds-truncate" title={rec.Name} style="text-align: center;">{rec.Name}
+									</div>
+								</td>
+								<td>
+									<div class="slds-truncate" title={rec.Email__c} style="text-align: center;">
+										{rec.Email__c}</div>
+								</td>
+							</tr>
+						</template>
+					</tbody>
+				</table> -->
+			</lightning-layout-item>
+			<lightning-layout-item size="5" padding="around-small" small-device-size="3" medium-device-size="6"
+				large-device-size="3">
+				<!-- <template if:true={showFailedProspectList}>
+					<div style="margin-left: 30%;margin-top:15%">
+						<table
+							class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer slds-scrollable"
+							role="grid" style="width:fit-content;border: 1px solid black; ">
+							<thead>
+								<tr>
+									
+									<th scope="col" height="22" style="width: 5rem;text-align: center;">First Name</th>
+									<th scope="col" height="22" style="width: 5rem;text-align: center;">Last Name</th>
+									<th scope="col" height="22" style="width: 5rem;text-align: center;">Email</th>
+								</tr>
+							</thead>
+							<tbody>
+								<template for:each={FailedProspectList} for:item="rec">
+									<tr key={rec.Name} class="slds-hint-parent">
+										<td>
+											<div class="slds-truncate" title={rec.First_Name__c}
+												style="text-align: center;">{rec.First_Name__c}</div>
+										</td>
+										<td>
+											<div class="slds-truncate" title={rec.Name} style="text-align: center;">
+												{rec.Name}</div>
+										</td>
+										<td>
+											<div class="slds-truncate" title={rec.Email__c} style="text-align: center;">
+												{rec.Email__c}</div>
+										</td>
+									</tr>
+								</template>
+							</tbody>
+						</table>
+					</div>
+				</template> -->
+			</lightning-layout-item>
+		</lightning-layout>
+	</lightning-card>
+</template>

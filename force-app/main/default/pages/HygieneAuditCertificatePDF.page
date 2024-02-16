@@ -1,0 +1,327 @@
+<apex:page applyHtmlTag="false" docType="html-5.0" applyBodyTag="false" showHeader="false" sidebar="false" standardController="Quote_C__c" renderAs="pdf" extensions="CertificationPDFHelper">
+    <html>
+        <head>
+            <style>
+                @page {
+                margin-top: 3cm;
+                margin-bottom:3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+                
+                @top-center {
+                content: element(header);
+                }
+                @bottom-left {
+                content: element(footer);
+                }
+                }
+                
+                div.header {
+                padding: 10px;
+                position: running(header);
+                }
+                div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+                }
+                .pagenumber:before {
+                content: counter(page);
+                }
+                .pagecount:before {
+                content: counter(pages);
+                }
+                div.content {
+                border-style:dotted;
+                float: left;
+                width: 100%;
+                }
+                hr.new2 {
+                border-top: 1px dashed black;
+                width: 40%;
+                text-align: left;
+                margin-left: -5px;
+                 }
+            </style>
+        </head>
+        <body>
+            <div class="footer" style="margin-left: auto; margin-right: auto;">
+                <div class="number" Style="float:right; font-size: 15px;">Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+                <br/>
+                <hr style="border-top: 1px solid #20B2AA;" />
+                <div class="left-footer" style="float: left; font-size: 15px; color: #888; user-select: none;">Right Solutions . Right Partner</div>
+                <div class="right-footer" style="float: right; font-size: 15px; color: navy; user-select: none;">
+                    <a href="http://www.alsglobal.com" target="_blank" style="color: navy; text-decoration: none;">www.alsglobal.com</a>
+                </div>
+            </div>
+            
+            
+            <div class="header">
+                
+                <div style="display: inline-block; width: 100%; margin: 1rem; padding: 2rem 2rem; padding-top: 10px; font-family: Noto Sans, Helvetica, sans-serif; margin-left: 30px;">
+                    <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 60%;">
+                        <apex:image url="{!$Resource.ALS_LOGO}" width="90" height="60" /><br/>
+                    </div>
+                    <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 40%; font-size: 12px;">
+                        <span>
+                            ALS Testing Services India Private Limited<br />
+                            No.65, Bommasandra Jigani Link Road<br />
+                            KIADB Industrial Area<br />
+                            <u>Bangalore - Karnataka</u><br />
+                            INDIA - 560105
+                        </span>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #D3D3D3;" />
+                
+                
+            </div>
+       
+            <div style="display: inline-block; width: 100%; margin: 1rem; padding: 2rem 2rem;font-size: 15px;">
+                <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 60%;">
+                    <table>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Customer Name :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span style="font-weight: normal;">{!getOppContactDetails.ContactId__r.Name}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Customer Address  :</b></span></td>
+                            <td style="padding-bottom: 10px;"><span style="font-weight: normal;">{!getOppContactDetails.ContactId__r.Billing_Address__Street__s},  </span> 
+                            <br/>
+                                <span style="font-weight: normal;" >{!getOppContactDetails.ContactId__r.Billing_Address__City__s} {!getOppContactDetails.ContactId__r.Billing_Address__StateCode__s}-{!getOppContactDetails.ContactId__r.Billing_Address__PostalCode__s}<br/> {!getOppContactDetails.ContactId__r.Billing_Address__CountryCode__s}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Contact Person :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span style="font-weight: normal;">{!getOppContactDetails.ContactId__r.Name}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Contact Mobile :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span style="font-weight: normal;">{!getOppContactDetails.ContactId__r.Phone}</span></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Email ID :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span style="font-weight: normal;">{!getOppContactDetails.ContactId__r.Email}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span><b>Account Manager :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap; "><span style="font-weight: normal;">{!quote.OpportunityId__r.CreatedBy.Name}</span></td>
+                        </tr>
+   
+           
+                        
+                        <!--tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Subject:</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span style="font-weight: normal;">{!Quote.Subject__c}</span></td>
+                        </tr-->
+                    </table>
+                </div>
+                <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 40%;">
+                    
+                        <table>
+                            <tr>
+                                <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Qutation No. :</b></span></td>
+                                <td style="padding-bottom: 10px;"><span style="font-weight: normal;">{!Quote.Name}</span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Quotation Date :</b></span></td>
+                                <td style="padding-bottom: 10px; white-space: nowrap;"><span style="font-weight: normal;"><apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!Quote.CreatedDate}" /></apex:outputText></span></td>
+                            </tr>
+                         
+                            <tr>
+                                <td style="padding-bottom: 10px; white-space: nowrap;"><span><b>Quotation Validity :</b></span></td>
+                                <td style="padding-bottom: 10px; white-space: nowrap;"><span style="font-weight: normal;"><apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!Quote.Quote_Validity__c}" /></apex:outputText></span></td>
+                            </tr>
+                            <tr>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span><b>Sales Contact : </b></span></td>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span style="font-weight: normal;">{!quote.OpportunityId__r.CreatedBy.MobilePhone}</span></td>
+                        </tr>
+                        </table>
+                    </div>
+                </div>    
+            <div style = " display: flex;flex:1;margin-top:10px">
+                <span style="font-weight: bold;"><b>Subject : <span style="font-weight: normal;">{!Quote.Subject__c}</span></b></span>
+            </div>
+            <br/>
+            
+            
+           <div style = "font-size: 15px;margin-top:10px">
+                <span>Thanks for the enquiry, based on your application with us for Hygiene Rating Certification, we are pleased to provide you with 
+                    the following Service Offer-Quotation / Contract for certification.</span><br/>
+            </div><br/>
+              
+            <div style="font-family: Noto Sans,Helvetica,sans-serif">
+            <div style="display: inline-block;width: 100%;margin: 1rem;padding: 2rem 2rem;padding-top:10px;font-family: Noto Sans,Helvetica,sans-serif;">
+                <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;float:left;width:50%">
+                    
+                    <span style="color:#606060;font-size: 13.5px;font-weight: bold;">Audit scheme </span>  <span style="font-size:13px;color: #606060;font-weight: normal"> </span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px"></span> </span><br/>
+                     <span style="color:#606060;font-size: 13.5px;font-weight: bold;">Total sites to be covered </span> <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> </span>   <br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px"></span> </span><br/>
+                    <span style="color:#606060;font-size: 13.5px;font-weight: bold;">Area of the units to be audited </span>  <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"></span>   <br/>
+                     
+                </div>
+                <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;float:left;width:50%;color:#606060;">
+                    <span style="color:#606060;font-weight: normal;font-size: 13.5px"> :- {!quote.Audit_Scheme__c}  <span style="color:#606060;font-weight: normal;font-size: 13.5px"></span> </span><br/>
+                    <span style="color:#606060;font-weight: normal;font-size: 13.5px">:- {!quote.Total_sites_to_be_covered__c}  <span style="color:#606060;font-weight: normal;font-size: 13.5px"></span> </span><br/>
+                    <span style="color:#606060;font-weight: normal;font-size: 13.5px">:- {!quote.Area_Of_The_Units_To_Be_Audited__c}  <span style="color:#606060;font-weight: normal;font-size: 13.5px"></span></span><br/>
+                </div>
+            </div>
+            </div>
+            
+           <table style="border-collapse: collapse;margin-top: 20px; margin-bottom: 10px;" width="100%">
+                <tr>
+                    <th style="text-align: center; border: 1px solid black;">Sr No.</th>
+                    <th style="text-align: center; border: 1px solid black;">Test Code &amp; Method</th>
+                <th style="text-align: center; border: 1px solid black;">Test Name</th>             
+                <th style="text-align: center; border: 1px solid black;">Quantity</th>
+                    <th style="text-align: center; border: 1px solid black;">Rate</th>
+                <th style="text-align: center; border: 1px solid black;">Amount</th>
+                </tr>
+                <apex:variable value="{!0}" var="counter"/>
+                <apex:variable value="{!0.0}" var="totalAmount"/>
+                <apex:repeat value="{!quoteLineItems}" var="qli">
+                    <tr>
+                        <td style="text-align: center; border: 1px solid black;">{!counter + 1}</td>
+                        <td style="text-align: left; border: 1px solid black;">
+                            Test Code : {!qli.Product_Code__c}<br/>
+                        	Method :
+                       <apex:outputPanel style="font-family: Arial, sans-serif;"><apex:outputText value="{!qli.Test_Method__c}" escape="false"/></apex:outputPanel> 
+                        </td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.ProductId__r.Name}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!ROUND(qli.Quantity__c, 0)}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.Sales_Price__c}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.Subtotal__c}</td>
+                    </tr>
+                    <apex:variable var="counter" value="{!counter + 1}"/>
+                    <apex:variable var="totalAmount" value="{!totalAmount + qli.Total_Price__c}"/>
+                </apex:repeat>
+                
+           <tr>
+                    <!--td colspan="6" style="text-align: right; border: 1px solid black;border-bottom:none;"><b> <span style="margin-right:110px;">Total </span></b> &nbsp; &nbsp; &nbsp; &nbsp; <span style=""> {!totalAmount} </span> </td-->
+                    <td colspan="5" style="border:1px solid black;border-collapse: collapse;text-align: right"><b> <span >Total </span></b></td>
+                	<td style="border:1px solid black;border-collapse: collapse;text-align: center;">{!totalAmount}</td>
+                </tr>
+                <tr>
+                    <!--td colspan="6" style="text-align: right; border: 1px solid black;"><b> <span style="margin-right:50px;">Discount (%) ({!ROUND(discountPercentage, 0)}%)</span> </b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span>{!ROUND(discountAmount, 0)}</span> </td-->
+                    <td colspan="5" style="border:1px solid black;border-collapse: collapse;text-align: right"><b> <span >Discount (%) ({!ROUND(discountPercentage, 0)}%)</span></b></td>
+                    <td style="border:1px solid black;border-collapse: collapse;text-align: center;">{!ROUND(discountAmount, 0)}</td>
+                </tr>
+                <tr>
+                    <!--td colspan="6" style="text-align: right; border: 1px solid black;"><b> <span style="margin-right:60px;">GST (%) ({!ROUND(gstPercentage, 0)}%)</span></b> &nbsp; &nbsp; &nbsp; &nbsp; <span>{!ROUND(gstAmount, 0)}</span> </td-->
+                	<td colspan="5" style="border:1px solid black;border-collapse: collapse;text-align: right"><b> <span >GST (%) ({!ROUND(gstPercentage, 0)}%)</span></b></td>
+                    <td style="border:1px solid black;border-collapse: collapse;text-align: center;">{!ROUND(gstAmount, 0)}</td>
+                </tr>
+                <tr>
+                    <!--td colspan="6" style="text-align: right; border: 1px solid black;"><b> <span style="margin-right:70px;">Grand Total</span></b> &nbsp; &nbsp; &nbsp; &nbsp; <span>{!ROUND(grandTotal, 0)}</span> </td-->
+                    <td colspan="5" style="border:1px solid black;border-collapse: collapse;text-align: right">
+                    <b>Grand Total</b>
+                </td>
+                <td style="border:1px solid black;border-collapse: collapse;text-align: center;">
+                    {!ROUND(grandTotal, 0)}
+                </td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: left; border: 1px solid black; font-size: 14px;padding:2 rem"><b>AMOUNT IN WORD: </b>&nbsp; &nbsp; &nbsp; INR.  {!totalAmountWords} ONLY</td>
+                </tr>
+            </table>
+
+            <div class="center-text" style="text-align: center ;margin-bottom: 10px;margin-top: 30px;font-size: 15px;"><strong>Annex 1</strong></div>
+            <span style="text-align: left;font-size: 15px;"> <b>General Terms and Conditions of ALS India CT:-</b> </span>
+            <div style="font-size: 15px;margin-top: 30px;">
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceGeneral.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceGeneral.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceDefinitions.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceDefinitions.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceScopeofService.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceScopeofService.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceConfidentiality.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceConfidentiality.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceObligationsbyClient.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceObligationsbyClient.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceLiabilityandLimitation.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceLiabilityandLimitation.Description__c}</span>
+                
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceIndemnity.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceIndemnity.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceForceMajeure.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceForceMajeure.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceArbitrationJurisdiction.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceArbitrationJurisdiction.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceExpirationofContract.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceExpirationofContract.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceTermination.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceTermination.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceInvoicingandPayment.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceInvoicingandPayment.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceREFUNDANDCANCELLATIONS.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceREFUNDANDCANCELLATIONS.Description__c}</span>
+
+                <span style="display: block;margin-bottom: 10px;font-weight:bold;font-size:14px;">{!TcHygeinceACKNOWLEDGEMENT.MasterLabel}</span>
+                <span style="display: block;margin-bottom: 10px;font-size:13px;">{!TcHygeinceACKNOWLEDGEMENT.Description__c}</span>
+
+            </div>
+            <br/>
+
+            <div class="center-text" style="text-align: center ;margin-bottom: 10px;margin-top: 30px;font-size: 15px;"><strong>Annex 2 - Terms &amp; Conditions</strong></div>
+            
+            <div style="font-size: 14px;">
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term1__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term2__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term3__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term4__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term5__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term6__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term7__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term8__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term9__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term10__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term11__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term12__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term13__c}</span>  
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term14__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term15__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term16__c}</span>
+                <span style="display: block;margin-bottom: 4px;font-size:13px;">{!TCHygiene_TC_2.Term17__c}</span>
+            </div>
+
+            
+            <div style="font-weight:bold; text-align:left; margin-top: 30px;font-size: 14px;">Signature of Acceptance:</div>
+            <hr class="new2"/>
+            <div style="font-weight:bold; text-align:left; margin-top: 10px;font-size: 14px;">Authorized Client Representative</div>
+            <span style="font-weight: bold;font-size: 14px;"><b>Name:</b></span>
+            <span style=" margin-top: 30px;font-size: 14px;">{!quote.AccountId__r.Name}</span> <br/>
+            <span style="font-weight: bold;font-size: 14px;"><b>Title:</b></span>
+            <span style=" margin-top: 30px;font-size: 14px;">{!quote.AccountId__r.Name}</span> <br/>
+            <span style="font-weight: bold;font-size: 14px;"><b>Date:</b></span>
+            <span style=" margin-top: 30px;font-size: 14px;"><apex:outputText value="{0, date, MM/dd/yyyy}"> <apex:param value="{!Quote.CreatedDate}" /> </apex:outputText></span> <br/> <br/> <br/> <br/> <br/>
+           
+            <div class="center-text" style="margin-bottom: 4px;margin-top: 20px;font-size: 14px;"><strong>Bank Details for Payment</strong></div>
+            <div style="display: inline-block;font-size: 14px;">
+                <span style="display: block; margin-bottom: 2px"><strong>Name of Beneficiary:</strong> {!BankDetails.Name_of_Beneficiary__c}</span>
+                <span style="display: block; margin-bottom: 2px"><strong>Bank Name:</strong> {!BankDetails.Bank_Name__c}</span>
+                <span style="display: block; margin-bottom: 2px"><strong>Address:</strong> {!BankDetails.Address__c}</span>
+                <span style="display: block; margin-bottom: 2px"><strong>Branch Name:</strong> {!BankDetails.Address__c}</span>
+               
+                <span style="display: block; margin-bottom: 2px"><strong>Bank Account Name:</strong> {!BankDetails.Bank_Account_Name__c}</span>
+                <span style="display: block; margin-bottom: 2px"><strong>Bank Account Number:</strong> {!BankDetails.Bank_Account_Number__c}</span>
+                <span style="display: block; margin-bottom: 2px"><strong>IFSC Code:</strong> {!BankDetails.IFSC_Code__c}</span>
+            </div>
+          
+        </body>
+    </html>
+    
+</apex:page>

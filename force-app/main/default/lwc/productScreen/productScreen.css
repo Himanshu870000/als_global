@@ -1,0 +1,13 @@
+.dummy{
+	color : black;
+}
+
+lightning-button.prevbutton {
+	--sds-c-button-brand-color-background: #04AA6D;
+    --sds-c-button-text-color: #f4f7f9;
+}
+
+
+.text {
+	color: blue;
+}

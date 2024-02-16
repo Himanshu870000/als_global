@@ -1,0 +1,111 @@
+<template>
+
+     <lightning-quick-action-panel header="Choose Address">
+         <h3><b>Report To</b></h3><br/>
+         <div class="slds-scrollable_x">
+             <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                 <thead>
+                     <tr class="slds-line-height_reset">
+                      <th class="" scope="col">
+                     <div class="slds-truncate" title="Select">Select</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="Address Type">Address Type</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="Street">Street</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="City">City</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="State">State</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="Country">Country</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="Pin Code">Pin Code</div>
+                     </th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                 <template for:each={ship_addresses} for:item="address" for:index="index">
+                     <tr key={address.id}>
+                         <td>
+                             <lightning-input type="checkbox" data-index={index} data-id={address.id} checked={address.checked}
+                                 onchange={onAddressSelect}></lightning-input>
+                         </td>
+                          <td> <div class="slds-truncate" title={address.type}>{address.type}</div></td>
+                         <!-- <td> <lightning-input type="text" disabled data-index={index} data-id={address.id} value={address.type}
+                                 onchange={onAddressSelect}></lightning-input> </td> -->
+                         <td> <div class="slds-truncate" title={address.street}>{address.street}</div></td>
+                         <td> <div class="slds-truncate" title={address.city}>{address.city}</div></td>
+                         <td> <div class="slds-truncate" title={address.state}>{address.state}</div></td>
+                         <td> <div class="slds-truncate" title={address.country}>{address.country}</div></td>
+                         <td> <div class="slds-truncate" title={address.postalCode}>{address.postalCode}</div></td>
+                     </tr>
+                 </template>
+                 </tbody>
+             </table>
+             
+         </div>
+ 
+         <br/><br/>
+         <h3><b>Billing Address</b></h3><br />
+          <div class="slds-scrollable_x">
+             <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                 <thead>
+                     <tr class="slds-line-height_reset">
+                      <th class="" scope="col">
+                     <div class="slds-truncate" title="Select">Select</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="Address Type">Address Type</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="Street">Street</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="City">City</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="State">State</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="Country">Country</div>
+                     </th>
+                     <th class="" scope="col">
+                     <div class="slds-truncate" title="Pin Code">Pin Code</div>
+                     </th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                 <template for:each={bill_addresses} for:item="address" for:index="index">
+                     <tr key={address.id}>
+                         <td>
+                             <lightning-input type="checkbox" data-index={index} data-id={address.id} checked={address.checked}
+                                 onchange={onBillAddressSelect}></lightning-input>
+                         </td>
+                          <td> <div class="slds-truncate" title={address.type}>{address.type}</div></td>
+                         <!-- <td> <lightning-input type="text" disabled data-index={index} data-id={address.id} value={address.type}
+                                 onchange={onAddressSelect}></lightning-input> </td> -->
+                         <td> <div class="slds-truncate" title={address.street}>{address.street}</div></td>
+                         <td> <div class="slds-truncate" title={address.city}>{address.city}</div></td>
+                         <td> <div class="slds-truncate" title={address.state}>{address.state}</div></td>
+                         <td> <div class="slds-truncate" title={address.country}>{address.country}</div></td>
+                         <td> <div class="slds-truncate" title={address.postalCode}>{address.postalCode}</div></td>
+                     </tr>
+                 </template>
+                 </tbody>
+             </table>
+             
+         </div>
+         <br/>
+         <div class="slds-clearfix">
+             <div class="slds-float_right">
+                 <lightning-button variant="brand" label="Submit" disabled={nextBtn} class="slds-m-left_x-small" onclick={handleNavigate}></lightning-button>
+             </div>
+         </div>
+     </lightning-quick-action-panel>
+ </template>

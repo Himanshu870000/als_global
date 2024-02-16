@@ -1,0 +1,19 @@
+<!-- checkFieldComponent.html -->
+<template>
+    <template if:true={ShowRmsnullMessage}>
+        <lightning-quick-action-panel style="background: lightsteelblue;">
+         <center style="text-align: center; padding-top: 2rem;">
+           <h2 style=" font-size: 25px;text-align: center;font-family: serif;">Please provide the RMS Value.</h2> <br/>
+           
+         </center>
+            <div class="slds-align_absolute-center">
+                 <lightning-button-group>
+                   <span style="margin-right:20px;">
+                <lightning-button class="slds-m-top_small" variant="brand" type="okay" label="Ok" onclick={closeQuickAction}>
+            </lightning-button>
+                   </span>
+                 </lightning-button-group>
+               </div> 
+        </lightning-quick-action-panel>
+       </template>
+</template>

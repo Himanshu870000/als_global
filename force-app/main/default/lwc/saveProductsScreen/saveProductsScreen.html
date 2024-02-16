@@ -1,0 +1,88 @@
+<template>
+
+<template if:true={isEditProdOpen}>
+        <lightning-quick-action-panel header="Edit Products">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Name">Product Name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Quantity</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Sales Price</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">List Price</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Total Value</div>
+                </th>
+                <!-- <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Discount (%)</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Value">Discounted Price</div>
+                </th> -->
+            </tr> 
+        </thead>
+        <tbody>
+            <!-- Use template for:each to iterate over oliList -->
+            <template for:each={oliList} for:item="item">
+                <tr key={item.productId}>
+                    <!-- Display Product Name -->
+                    <td data-label="Name">
+                        <div class="multiline-name slds-truncate" title={item.Name}>{item.Name}</div>
+                    </td>
+                    <!-- Editable Quantity field -->
+                    <td data-label="Value">
+                        <lightning-input class="fixedInputWidth" type="number" value={item.quantity}  data-id={item.productId} data-field="quantity" onchange={handleInputChange} required="true"></lightning-input>
+                    </td>
+                    <!-- Editable Sales Price field -->
+                    <td data-label="Value">
+                        <lightning-input class="fixedInputWidth" type="number" value={item.SalesPrice} label="" data-id={item.productId} data-field="SalesPrice" onchange={handleInputChange}></lightning-input>
+                    </td>
+                    <!-- Non-editable List Price field -->
+                    <td data-label="Value">
+                        <div class="slds-truncate" title={item.ListPrice}>{item.ListPrice}</div>
+                    </td>
+                    <!-- Non-editable Total Value field -->
+                    <td data-label="Value">
+                        <div class="slds-truncate" title={item.totalValue}>{item.totalValue}</div>
+                    </td>
+                    <!-- Editable Discount field -->
+                    <!-- <td data-label="Value">
+                        <lightning-input class="fixedInputWidth" type="number" value={item.discount} label="" data-id={item.productId} data-field="discount" onchange={handleInputChange}></lightning-input>
+                    </td> -->
+                    <!-- Non-editable Discounted Price field -->
+                    <!-- <td data-label="Value">
+                        <div class="slds-truncate" title={item.discountedPrice}>{item.discountedPrice}</div>
+                    </td> -->
+                </tr>
+            </template>
+        </tbody>
+    </table>
+
+        <div slot="footer">
+            <lightning-button
+                variant="neutral"
+                label="Cancel"
+                onclick={handleCancel}
+            ></lightning-button>
+            <lightning-button
+                variant="brand"
+                label="Save"
+                onclick={handleSave}
+                class="slds-m-left_x-small"
+            ></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+    </template>
+    <template if:true={isLoading}>
+    <div class="exampleHolder">
+        <lightning-spinner alternative-text="Loading" size="x-small"></lightning-spinner>
+    </div>
+    </template>
+</template>

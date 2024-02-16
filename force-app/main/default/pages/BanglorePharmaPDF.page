@@ -1,0 +1,355 @@
+<apex:page applyHtmlTag="false" docType="html-5.0" applyBodyTag="false" showHeader="false" sidebar="false" standardController="Quote_C__c" renderAs="pdf" extensions="BanglorePharmaPDFController">
+    <html>
+        <head>
+            <style>
+                @page {
+                margin-top: 3cm;
+                margin-bottom:3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+                
+                @top-center {
+                content: element(header);
+                }
+                @bottom-left {
+                content: element(footer);
+                }
+                }
+                
+                div.header {
+                padding: 10px;
+                position: running(header);
+                }
+                div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+                }
+                .pagenumber:before {
+                content: counter(page);
+                }
+                .pagecount:before {
+                content: counter(pages);
+                }
+                div.content {
+                border-style:dotted;
+                float: left;
+                width: 100%;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="footer" style="margin-left: auto; margin-right: auto;">
+                <div class="number" Style="float:right; font-size: 15px;">Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+                <br/>
+                <hr style="border-top: 1px solid #20B2AA;" />
+                <div class="left-footer" style="float: left; font-size: 15px; color: #888; user-select: none;">Right Solutions . Right Partner</div>
+                <div class="right-footer" style="float: right; font-size: 15px; color: navy; user-select: none;">
+                    <a href="http://www.alsglobal.com" target="_blank" style="color: navy; text-decoration: none;">www.alsglobal.com</a>
+                </div>
+            </div>
+            
+            
+            <div class="header">
+                
+                <div style="display: inline-block; width: 100%; margin: 1rem; padding: 2rem 2rem; padding-top: 10px; font-family: Noto Sans, Helvetica, sans-serif; margin-left: 30px;">
+                    <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 60%;">
+                        <apex:image url="{!$Resource.ALS_Banglore_Logo}" width="90" height="60" /><br/>
+                    </div>
+                    <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 40%; font-size: 12px;">
+                        <span>
+                            ALS Testing Services India Private Limited<br />
+                            No.65, Bommasandra Jigani Link Road<br />
+                            KIADB Industrial Area<br />
+                            <u>Bangalore - Karnataka</u><br />
+                            INDIA - 560105
+                        </span>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #D3D3D3;" />
+                
+            </div>
+            
+            
+            <div style="display: inline-block; width: 100%; margin: 1rem; padding: 2rem 2rem; font-size: 15px;">
+                
+                <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 60%;">
+                    <table>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap"><span><b>Customer Name :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span style="font-weight: normal;">{!quote.AccountId__r.Name}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Customer Address :</b></span></td>
+                            <td style="padding-bottom: 10px;"><span style="font-weight: normal;">{!quote.OpportunityId__r.Billing_Address__Street__s},{!quote.OpportunityId__r.Billing_Address__PostalCode__s},{!quote.OpportunityId__r.Billing_Address__City__s}{!quote.OpportunityId__r.Billing_Address__StateCode__s}{!quote.OpportunityId__r.Billing_Address__CountryCode__s}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Contact Person :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span style="font-weight: normal;">{!quote.ContactId__r.Owner.Name}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Contact Mobile :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap; "><span style="font-weight: normal;">{!quote.ContactId__r.Phone}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Email ID :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap; "><span style="font-weight: normal;">{!quote.ContactId__r.Email}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span><b>Account Manager :</b></span></td>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span style="font-weight: normal;">{!quote.OpportunityId__r.CreatedBy.Name}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Subject :</b></span></td>
+                            <td style="padding-bottom: 10px;"><span style="font-weight: normal;">{!quote.Subject__c}</span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="display: inline-block; padding: 2rem 2rem; vertical-align: middle; float: left; width: 40%;">
+                    <table>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Qutation No.</b> </span></td>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span style="font-weight: normal;">{!quote.Name}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;white-space: nowrap;"><span><b>Quotation Date :</b></span></td>
+                            <td style="padding-bottom: 10px;white-space: nowrap; "><span style="font-weight: normal;"><apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!quote.CreatedDate}" /></apex:outputText></span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span><b>Contact Number : </b></span></td>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span style="font-weight: normal;">7004308908</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span><b>Validity Date :</b></span></td>
+                            <td style="padding-bottom: 10px; white-space: nowrap;"><span style="font-weight: normal;"><apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!quote.Quote_Validity__c}" /></apex:outputText></span></td>
+                        </tr>
+                    </table>
+                </div>
+                
+            </div>
+            
+            
+            <div style = "font-size: 15px;margin-top:10px">
+                <span>{!information.Information_1__c}</span>
+         
+            </div>
+            
+            <div style="font-size: 15px;">
+                <span style="display: block;">
+                    <br/>
+                    The prices and conditions apply to samples submitted to:
+                    <br/><br/>
+                    ALS Testing Services India Private Limited<br />
+                    No.65, Bommasandra Jigani Link Road<br />
+                    KIADB Industrial Area<br />
+                    Bangalore – 560105<br />
+                    Karnataka. INDIA
+                </span>
+            </div>
+            
+            <div style = "font-size: 15px;margin-top:20px">
+                
+                <span class="content" style="display: block;margin-bottom: 10px;">{!information.Information_2__c}</span>
+                
+                <span class="content" style="display: block;margin-bottom: 10px;">{!information.Information_3__c}</span>
+                
+                <span class="content" style="display: block;margin-bottom: 10px;">{!information.Information_4__c}</span>
+                
+            </div>
+            
+            <div style = "font-size: 15px;margin-top:10px">
+                
+                <div style="margin-bottom: 5px;"><strong>A.Sample material / logistics</strong></div>
+                <span class="content" style="display: block;">{!information.A_Sample_material_logistics__c}</span>
+                <div style="margin-bottom: 5px; margin-top: 10px;"><strong>B.Analytical Investigations / OOS / Deviations</strong></div>
+                <span class="content" style="display: block;">{!information.B_Analytical_Investigations_OOS_Devi__c}</span>
+                <div style="margin-bottom: 5px; margin-top: 10px;"><strong>C.Documentation </strong></div>
+                <span class="content" style="display: block;">{!information.Documentation__c}</span>
+                <div style="margin-bottom: 5px; margin-top: 10px;"><strong>D.Turnaround time</strong></div>
+                <span class="content" style="display: block;">{!information.Turnaround_time__c}</span>
+                <div style="margin-bottom: 5px; margin-top: 10px;"><strong>E.Sample pick-up servicee</strong></div>
+                <span class="content" style="display: block;">{!information.Sample_pick_up_service__c}</span>
+                <div style="margin-bottom: 5px; margin-top: 10px;"><strong>F.Health, Safety and Environment – Hazardous Samples</strong> </div>
+                <span class="content" style="display: block;margin-bottom: 5px;">{!information.Health_Safety_and_Environment_Hazardo__c}
+                    <ul style="margin-left: 20px; list-style-type: disc;">
+                        <li>Extreme pH values</li>
+                        <li>Potential Impurities present at concentrations greater than 10 %</li>
+                        <li>Strong or noxious odors, vapors</li>
+                        <li>Strong or noxious odors, vapors</li>
+                        <li>Strong or noxious odors, vapors</li>
+                        <li>Strong or noxious odors, vapors</li>
+                    </ul>	   
+                </span>	
+                <div style="margin-bottom: 5px;"><strong>Notes</strong></div>
+                <span class="content">{!information.Notes__c}</span>
+                
+            </div>
+            
+            
+            <div style="margin-top: 10px;font-size: 15px;">
+                
+                <div style="text-align: left; float: left; width: 30%;">
+                    System :<br/>
+                    OOS SOP :<br/>
+                    Study Protocol / Report :<br/>
+                    Archival Management :<br/>
+                    COA / ROA/ Test Report :<br/>
+                </div>
+                <div style="text-align: left; float: left; width: 30%;font-size: 15px;">
+                    ALS Standard<br/>
+                    ALS SOP: S01-PLC-0008<br/>
+                    Standard ALS Format<br/>
+                    ALS SOP NO.SO1-QAM-0023<br/>
+                    Soft Copy by e-mail<br/>
+                </div>
+                <div style="clear: both;"></div>
+                
+            </div>
+            
+            
+            <div style="margin-top: 10px; margin-bottom: 10px;font-size: 15px;"><strong>Comments:</strong></div>		
+            <span class="content" style="display: block;font-size: 15px;">{!Quote.Comment__c}</span>
+            
+            <table style="border-collapse: collapse;margin-top: 20px; margin-bottom: 10px;" width="100%">
+                <tr>
+                    <th style="text-align: center; border: 1px solid black;">Sr No.</th>
+                    <th style="text-align: center; border: 1px solid black;">Test Name</th>
+                    <th style="text-align: center; border: 1px solid black;">Test Code</th>
+                    <th style="text-align: center; border: 1px solid black;">Quantity</th>
+                    <th style="text-align: center; border: 1px solid black;">List Price</th>
+                    <th style="text-align: center; border: 1px solid black;">Sales Price</th>
+                    <th style="text-align: center; border: 1px solid black;">Total Price</th>
+                </tr>
+                <apex:variable value="{!0}" var="counter"/>
+                <apex:variable value="{!0.0}" var="totalAmount"/>
+                <apex:repeat value="{!quoteLineItems}" var="qli">
+                    <tr>
+                        <td style="text-align: center; border: 1px solid black;">{!counter + 1}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.ProductId__r.Name}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.ProductId__r.ProductCode__c}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!ROUND(qli.Quantity__c, 0)}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.List_Price__c}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.Sales_Price__c}</td>
+                        <td style="text-align: center; border: 1px solid black;">{!qli.Total_Price__c}</td>
+                    </tr>
+                    <apex:variable var="counter" value="{!counter + 1}"/>
+                    <apex:variable var="totalAmount" value="{!totalAmount + qli.Total_Price__c}"/>
+                </apex:repeat>
+                <tr>
+                    <td colspan="7" style="text-align: right; border: 1px solid black;"><b> <span style="margin-right:110px;">Total </span></b> &nbsp; &nbsp; &nbsp; &nbsp; <span style=""> {!ROUND(totalAmount, 0)}</span> </td>
+                </tr>
+                <apex:outputText rendered="{!Quote.Include_GST__c == true}">
+                    <tr>
+                        <td colspan="7" style="text-align: right; border: 1px solid black;"><b> <span style="margin-right:45px;">GST (%) ({!ROUND(gstPercentage, 0)}%)</span></b> &nbsp; &nbsp; &nbsp; &nbsp; <span>{!ROUND(gstAmount, 0)}</span> </td>
+                    </tr>
+                </apex:outputText>
+                <apex:outputText rendered="{!Quote.Include_Discount__c == true}">
+                    <tr>
+                        <td colspan="7" style="text-align: right; border: 1px solid black;"><b> <span style="margin-right:47px;">Discount (%) ({!ROUND(discountPercentage, 0)}%)</span> </b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span>{!ROUND(discountAmount, 0)}</span> </td>
+                    </tr>
+                </apex:outputText>
+                <tr>
+                    <td colspan="7" style="text-align: right; border: 1px solid black;"><b> <span style="margin-right:60px;">Grand Total</span></b> &nbsp; &nbsp; &nbsp; &nbsp; <span>{!ROUND(grandTotal, 0)}</span> </td>
+                </tr>
+                <tr>
+                    <td colspan="7" style="text-align: right; border: 1px solid black;"><b>AMOUNT IN WORD: </b>&nbsp; &nbsp; &nbsp; INR.  {!totalAmountWords} ONLY </td>
+                </tr>
+            </table>
+            
+            <div style="display: inline-block;margin-top: 20px;font-size: 15px;">
+                <span style="font-weight: bold;"><b>Sample Quantity:</b></span>
+                <span>{!Quote.Sample_quantity__c}</span>
+            </div>
+            
+            <br/>
+            
+            <div style="display: inline-block;margin-top: 20px;font-size: 15px;">
+                <span style="font-weight: bold;"><b>TAT:</b></span>
+                <span>{!Quote.TAT__c}</span>
+            </div>
+            
+            <br/>
+            
+            <div style="display: inline-block;margin-top: 20px;font-size: 15px;">
+                <span style="font-weight: bold;"><b>Note:</b></span>
+                <span>{!Quote.Note__c}</span>
+            </div>
+            
+            <div class="center-text" style="margin-bottom: 10px;margin-top: 20px;font-size: 15px;"><u><strong>General Terms and Condition</strong></u></div>
+            <div>
+                <span style="display: block; margin-bottom: 5px">{!genrealterms.Term_1__c}</span>
+                <span style="display: block; margin-bottom: 5px">{!genrealterms.Term_2__c}</span>
+                <span style="display: block; margin-bottom: 5px">{!genrealterms.Term_3__c}</span>
+                <span style="display: block; margin-bottom: 5px">{!genrealterms.Term_4__c}  
+                    <br/> <span style="margin-left:8px;">Any change required in the methods will attract a price revision, if applicable.</span> 
+                </span>
+                <span style="display: block; margin-bottom: 5px">{!genrealterms.Term_5__c}
+                	<br/> <span style="margin-left:8px;">sponsor and mutually decide on further progress and recalculate the price.</span>
+                </span>
+                <span style="display: block; margin-bottom: 5px">{!genrealterms.Term_6__c}</span>
+            </div>
+            
+            <div class="center-text" style="margin-bottom: 10px;margin-top: 15px;font-size: 15px;"><u><strong>Bank details</strong></u></div>
+            <div style="display: inline-block;font-size: 15px;">
+                <span style="display: block; margin-bottom: 5px"><strong>Name of Beneficiary:</strong> {!BankDetails.Name_of_Beneficiary__c}</span>
+                <span style="display: block; margin-bottom: 5px"><strong>Bank Name:</strong> {!BankDetails.Bank_Name__c}</span>
+                <span style="display: block; margin-bottom: 5px"><strong>Address:</strong> {!BankDetails.Address__c}</span>
+                <span style="display: block; margin-bottom: 5px"><strong>Branch Name:</strong> {!BankDetails.Address__c}</span>
+                
+                <span style="display: block; margin-bottom: 5px"><strong>Bank Account Name:</strong> {!BankDetails.Bank_Account_Name__c}</span>
+                <span style="display: block; margin-bottom: 5px"><strong>Bank Account Number:</strong> {!BankDetails.Bank_Account_Number__c}</span>
+                <span style="display: block; margin-bottom: 10px"><strong>IFSC Code:</strong> {!BankDetails.IFSC_Code__c}</span>
+                <span style="display: block;">ALS GST number- {!BankDetails.ALS_GST_number__c}</span>
+            </div>
+            
+            <div class="center-text" style="margin-bottom: 10px; margin-top: 30px;font-size: 15px;"><u><strong>FEES AND PAYMENT</strong></u></div>
+            <div style = "font-size: 15px;">
+                <span style="display: block; margin-bottom: 5px">{!feesandpayment.Fees_and_payment_1__c}</span>
+                <span style="display: block; margin-bottom: 5px">{!feesandpayment.Fees_and_payment_2__c}</span>
+                <span style="display: block; margin-bottom: 5px">{!feesandpayment.Fees_and_payment_3__c}</span>
+                <span style="display: block; margin-bottom: 5px">{!feesandpayment.Fees_and_payment_4__c}</span>
+                <span style="display: block; margin-bottom: 5px">{!feesandpayment.Fees_and_payment_5__c}</span>
+                <span style="display: block; margin-bottom: 5px">{!feesandpayment.Fees_and_payment_6__c}</span>
+                <span style="display: block; margin-bottom: 5px">{!feesandpayment.Fees_and_payment_7__c}</span>
+            </div>
+            
+            <div class="center-text" style="text-align: center ;margin-bottom: 10px;margin-top: 30px;font-size: 15px;"><u><strong>ALS Limited - Terms &amp; Conditions</strong></u></div>
+            <div style="font-size: 15px;">
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_1__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_2__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_3__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_4__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_5__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_6__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_7__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_8__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_9__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_10__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_11__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_12__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_13__c}</span>  
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_14__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_15__c}</span>
+                <div style="margin-left: 20px;">
+                    <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_15_1__c}</span>
+                    <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_15_2__c}</span>
+                    <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_15_3__c}</span>
+                    
+                </div>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_16__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_17__c}</span>
+                <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_18__c}</span>
+                <div style="margin-left: 20px;">
+                    <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_18_1__c}</span>
+                    <span style="display: block;margin-bottom: 10px;">{!ALSTermsandConditions.Term_18_2__c}</span>
+                </div>
+            </div>
+            
+            <div style="display: inline-block;margin-top: 10px;font-size: 15px;">
+                <span style="font-weight: bold;"><b>Note:</b></span>
+                <span>{!ALSTermsandConditions.Notes__c}</span>
+            </div>
+            
+        </body>
+    </html>
+</apex:page>

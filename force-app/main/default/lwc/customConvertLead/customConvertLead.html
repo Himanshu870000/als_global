@@ -1,0 +1,188 @@
+<template>
+     <template if:false={showDuplicateErrorPanel}>
+     <lightning-quick-action-panel header="Convert Lead">
+       <template for:each={leads} for:item="ld">
+         <div key={ld.id}>
+             <lightning-accordion class="Acc-accordion" 
+                            onsectiontoggle={handleToggleSection}
+                            active-section-name="Acc"
+                            allow-multiple-sections-open>
+               <lightning-accordion-section name="Acc" label="Account">
+                    <div class="slds-grid slds-gutters">
+                       <div class="slds-col slds-size_6-of-12">
+                             <lightning-radio-group name="radioGroup1"
+                             options={options1}
+                             value={selectedValue1}
+                             type="radio"
+                             class="bold-options"
+                             data-id="radio1"
+                             onchange={handleRadio1ChangeAccountNew}></lightning-radio-group>
+                             <lightning-card>
+                             <lightning-input class="slds-m-around_medium" type="text" label="Account Name" name="company" onchange={onChangeValue} value={ld.Company__c} placeholder="Account Name" required></lightning-input>
+                             </lightning-card>
+                       </div>
+                       <div class="slds-col slds-size_6-of-12">
+                          <lightning-radio-group name="radioGroup4"
+                             options={options4}
+                             value={selectedValue4}
+                             type="radio"
+                             class="bold-options"
+                             onchange={handleRadio4ChangeExistingAccount}></lightning-radio-group>
+                             <div class="slds-m-around_medium">
+                               <c-convert-lead-existing-records onprogressvaluechange={hanldeProgressValueChange} object-a-p-i-name='Account' icon-name='standard:account' unique-name='Account'></c-convert-lead-existing-records>
+                             </div>
+                             <div class="slds-box slds-m-around_medium" style="height:100px">
+                               <p>0 Account Matches</p>
+                             </div>
+                         </div>
+                   </div>
+               </lightning-accordion-section>
+   
+               <lightning-accordion-section name="Con" label="Contact">
+                   <div class="slds-grid slds-gutters">
+                       <div class="slds-col slds-size_6-of-12">
+                           <lightning-radio-group name="radioGroup2"
+                             options={options2}
+                             value={selectedValue2}
+                             type="radio"
+                             class="bold-options"
+                             onchange={handleRadio2ChangeContactNew}></lightning-radio-group>
+                             <lightning-card>
+                               <lightning-combobox
+                               class="slds-m-around_medium"
+                               name="progress"
+                               label="Salutation"
+                               value={comValues}
+                               placeholder="Select Progress"
+                               options={comOptions}
+                               onchange={handleChange} >
+                               </lightning-combobox>
+                             <lightning-input key={ld.Id} class="slds-m-around_medium" type="text" name="firstname" onchange={onChangeValue} label="First Name" value={ld.First_Name__c}></lightning-input>
+                             <lightning-input class="slds-m-around_medium" type="text" label="Last Name" name="lastname" onchange={onChangeValue} required value={ld.Name}></lightning-input>
+                             </lightning-card>
+                           </div>
+                           <div class="slds-col slds-size_6-of-12">
+                             <lightning-radio-group name="radioGroup5"
+                             options={options5}
+                             value={selectedValue5}
+                             type="radio"
+                             class="bold-options"
+                             onchange={handleRadio5ChangeExistingContact}></lightning-radio-group>
+                           <div  class="slds-m-around_medium">
+                             <c-convert-lead-existing-records onprogressvaluechange={hanldeContactValueChange} object-a-p-i-name='Contact' icon-name='standard:contact' unique-name='Contact'></c-convert-lead-existing-records>
+                           </div>
+                               <!-- <div class="slds-m-around_medium slds-box" style="height:100px">
+                                   <p>0 Contacts Matches</p>
+                               </div> -->
+                               <div class="slds-m-around_medium">
+                                 <lightning-input type="checkbox" label="Update Leadsource" ></lightning-input>
+                               </div>
+                           </div>
+                   </div>
+               </lightning-accordion-section>
+   
+               <lightning-accordion-section name="Opp" label="Opportunity">
+                   <div class="slds-grid slds-gutters">
+                       <div class="slds-col slds-size_6-of-12">
+                         <lightning-radio-group name="radioGroup3"
+                             options={options3}
+                             value={selectedValue3}
+                             type="radio"
+                             class="bold-options"
+                             onchange={handleRadio3ChangeOpportunityNew}></lightning-radio-group>
+                             <lightning-card>
+                               <lightning-input class="slds-m-around_medium" type="text" value={ld.Company__c} name="company" onchange={onChangeValue} label="Opportunity Name" required></lightning-input>
+                               <lightning-combobox
+                               class="slds-m-around_medium"
+                               name="Record Type"
+                               label="Record Type"
+                               value={OppValues}
+                               placeholder="Select Progress"
+                               options={OppOptions}
+                               onchange={handleChange} >
+                               </lightning-combobox>                                                    
+                             </lightning-card>
+                             <lightning-input class="slds-m-around_medium" type="checkbox" onchange={handleTodoChange} label="Don't create an opportunity upon conversion" name="Oppo"></lightning-input>
+                           </div>
+                           <div class="slds-col slds-size_6-of-12">
+                            <lightning-radio-group name="radioGroup6"
+                             options={options6}
+                             value={selectedValue6}
+                             type="radio"
+                             class="bold-options"
+                             onchange={handleRadio6ChangeExistingOpportunity}></lightning-radio-group>
+                           <lightning-card>
+                              
+                             <template if:false={oppRecords}>
+                             <p class="slds-p-horizontal_small slds-align_absolute-center">0 Opportunity Matches</p>
+                             </template>
+
+                               <template if:true={oppRecords}>
+                                 <p style="margin:20px">{oppSize} Opportunity Matches</p>
+                                 <div class="slds-scrollable_y" style="width:50rem" tabindex="0">
+                                  <template for:each={oppResults} for:item="opp">
+                                    <div key={opp.Id} >
+                                      <div class="slds-box slds-m-around_medium" style="height: 129px;width: 26rem;">
+
+                                        <input type="radio"   data-id={opp.Id} onchange={handleInputChange} checked={opp.cheked} ><b class="text" style="margin-left: 1rem;text-transform: uppercase ">{opp.oppname}</b></input>
+                                        <!-- <lightning-radio-group name="radioGroup"
+                                        options={optionsoppList}
+                                        value={value}
+                                        onchange={handleInputChange}
+                                        type="radio"></lightning-radio-group> -->
+
+                                        <p class="text" style="margin-left: 28px;margin-bottom: 3px; ">Account Name: {opp.accname}</p>
+                                         <p class="text" style="margin-left: 28px;margin-bottom: 3px; ">Close Date: {opp.closedate}</p>
+                                        <p class="text" style="margin-left: 28px;margin-bottom: 3px; ">Amount: {opp.amount}</p>
+                                        <p class="text" style="margin-left: 28px;margin-bottom: 3px; ">Opportunity Owner: {opp.AccountId__r.Owner.Name}</p> 
+                                      </div>
+                                      </div>
+                                  </template>
+                                  </div>
+                               </template>
+
+                           </lightning-card>
+                           </div>
+                   </div>
+               </lightning-accordion-section>
+       </lightning-accordion>
+         
+           <div class="slds-grid slds-gutters slds-border_top">
+       <div class="slds-col slds-size_6-of-12">
+           <span>
+               <lightning-input class="slds-m-around_medium" type="text" value={leadRecordOwnerName} label="Record Owner" required></lightning-input>
+               
+           </span>
+       </div>
+       <div class="slds-col slds-size_6-of-12">
+       <span>
+           <lightning-combobox class="slds-m-around_medium" label="Converted Status" value={convertValues} options={ConvertOptions} onchange={handleChange} required="true" > </lightning-combobox>
+       </span>
+       </div>
+       </div>
+       </div>
+       </template>
+       <div class="slds-col modal-footer slds-modal__footer">     
+                  <lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+                  <lightning-button variant="brand" label="Convert" class="slds-m-left_x-small" onclick={handleConvert}></lightning-button>
+             </div>
+        </lightning-quick-action-panel>
+     </template>
+
+   
+     <template if:true={showDuplicateErrorPanel}>
+          <lightning-quick-action-panel style="background: lightsteelblue;">
+           <center style=" height: 5rem; text-align: center; padding-top: 2rem;">
+             <h2 style=" font-size: 25px;text-align: center;font-family: serif;">{errorMessageDuplicate}</h2>
+           </center>
+              <div class="slds-align_absolute-center">
+                   <lightning-button-group>
+                     <span style="margin-right:20px;    margin-top: 10px;">
+                  <lightning-button  variant="destructive" label="Cancel" onclick={closeQuickAction} class="slds-m-top_small slds-m-bottom_medium slds-m-left_x-small" ></lightning-button> 
+                     </span>
+                   </lightning-button-group>
+                 </div> 
+          </lightning-quick-action-panel>
+         </template>
+
+   </template>
